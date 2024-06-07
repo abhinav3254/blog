@@ -1,0 +1,34 @@
+<div *ngIf="cloth" class="single-cloth">
+    <div class="image-section">
+        <div class="image">
+            <img src="{{cloth.image1}}" alt="">
+        </div>
+        <div class="image">
+            <img src="{{cloth.image2}}" alt="">
+        </div>
+        <div class="image">
+            <img src="{{cloth.image3}}" alt="">
+        </div>
+        <div class="image">
+            <img src="{{cloth.image4}}" alt="">
+        </div>
+        <div class="image">
+            <img src="{{cloth.image5}}" alt="">
+        </div>
+        <div class="image">
+            <img src="{{cloth.image6}}" alt="">
+        </div>
+    </div>
+    <div class="body-section">
+        <p class="productName">{{cloth.productName}}</p>
+        <p>Maroon & Gold-Toned Ethnic Motifs Printed Gotta Patti Pleated Kurti</p>
+        <div class="reviews">
+            <div class="review-card">
+                <p class="rating">{{cloth.rating}}</p>
+                <img src="../../../assets/star.svg" alt="">
+            </div>
+            <p class="reviewsCount">{{cloth.reviewsCount}} Ratings</p>
+        </div>
+        <p>{{cloth.price | currency:"INR"}}</p>
+    </div>
+</div>

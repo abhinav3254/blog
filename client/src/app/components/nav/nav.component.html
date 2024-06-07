@@ -1,0 +1,32 @@
+<nav>
+    <img src="../../../assets/logo.svg" alt="">
+    <ul *ngFor="let nav of navItems">
+        <li>{{nav}}</li>
+    </ul>
+    <div class="nav-right">
+        <div class="search">
+            <input type="text" [(ngModel)]="query" placeholder="search...">
+            <button (click)="searchQuery()">search</button>
+        </div>
+        <ul class="nav-profile">
+            <li>
+                <div>
+                    <img src="../../../assets/bag.svg" alt="">
+                    <p>CART</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <img src="../../../assets/profile.svg" alt="">
+                    <p>PROFILE</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <img src="../../../assets/like.svg" alt="">
+                    <p>WISHLIST</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
