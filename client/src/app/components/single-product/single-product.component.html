@@ -39,6 +39,19 @@
                     <p>{{clothingSize}}</p>
                 </div>
             </div>
+
+            <div class="colors">
+                <p>Avaiable in Colors</p>
+                <div class="colors-conatiner">
+                    <div class="color-box" *ngFor="let color of createSizeArray(cloth.colors)"
+                        [style.background-color]="color"></div>
+                </div>
+            </div>
+            <p>{{cloth.careInstructions}}</p>
         </div>
     </div>
 </div>
+
+<ng-container *ngIf="cloth">
+    <app-similar-products [occasion]="cloth.occasion"></app-similar-products>
+</ng-container>

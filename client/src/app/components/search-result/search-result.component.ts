@@ -38,8 +38,6 @@ export class SearchResultComponent implements OnInit {
       (res => {
         this.clothsResponse = res as ClothResponse;
         this.cloths = this.clothsResponse.content;
-        console.log(this.cloths);
-
       })
     );
   }

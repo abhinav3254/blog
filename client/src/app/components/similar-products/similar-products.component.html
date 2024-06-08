@@ -1,0 +1,8 @@
+<ng-container *ngIf="cloths.length > 0">
+    <p>SIMILAR PRODUCTS</p>
+    <div class="cloth-conatiner">
+        <div class="singleCloth" *ngFor="let cloth of cloths" (click)="navigateToProduct(cloth.clothId)">
+            <img src={{cloth.image}} alt="">
+        </div>
+    </div>
+</ng-container>

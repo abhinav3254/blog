@@ -1,0 +1,17 @@
+.cloth-conatiner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.singleCloth {
+    width: 10%;
+    height: 200px;
+}
+
+.singleCloth img {
+    height: 100%;
+    width: 100%;
+}

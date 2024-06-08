@@ -10,24 +10,24 @@ import { Cloth } from 'src/app/interfaces/Cloth';
 })
 export class SingleProductComponent implements OnInit {
 
-  constructor(
-    private router: ActivatedRoute,
-    private homeService: HomeService
-  ) { }
-
   productId: number = 0;
   cloth: Cloth | undefined;
   sizes: string[] = [];
   clothingSizes: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
 
+  constructor(
+    private router: ActivatedRoute,
+    private homeService: HomeService
+  ) { }
+
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       // because In routing I mentioned it as id
       this.productId = params['id'];
+      this.findProductById(this.productId);
     });
-    this.findProductById(this.productId);
   }
 
   findProductById(productId: number) {

@@ -22,4 +22,8 @@ export class HomeService {
     return this.http.get(`/cloth/search?query=${query}&page=${page}`);
   }
 
+  public getByQueryAndSize(query: string, page: number, size: number): Observable<any> {
+    return this.http.get(`/cloth/search?query=${query}&page=${page}&size=${size}`);
+  }
+
 }

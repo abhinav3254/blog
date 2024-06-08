@@ -11,6 +11,7 @@ import { BannerComponent } from './components/banner/banner.component';
 import { SingleProductComponent } from './components/single-product/single-product.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { FormsModule } from '@angular/forms';
+import { SimilarProductsComponent } from './components/similar-products/similar-products.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     StoreLocatorComponent,
     BannerComponent,
     SingleProductComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    SimilarProductsComponent
   ],
   imports: [
     BrowserModule,
