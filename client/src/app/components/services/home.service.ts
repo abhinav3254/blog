@@ -18,4 +18,8 @@ export class HomeService {
     return this.http.get(`/cloth/${productId}`);
   }
 
+  public getByQuery(query: string, page: number): Observable<any> {
+    return this.http.get(`/cloth/search?query=${query}&page=${page}`);
+  }
+
 }

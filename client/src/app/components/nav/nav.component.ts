@@ -12,10 +12,20 @@ export class NavComponent {
 
   query: string = '';
 
-  navItems: string[] = ['MEN', 'WOMEN', 'DECORATION', 'JEWELRY'];
+  navItems: string[] = ['MALE', 'FEMALE', 'DECORATION', 'JEWELRY'];
 
   searchQuery(): void {
-    this.router.navigate(['/query'], { queryParams: { query: this.query } });
+    this.router.navigate(['/search'], { queryParams: { query: this.query } });
+    this.query = '';
+  }
+
+  goToHome(): void {
+    this.router.navigate(['']);
+  }
+
+  navItemClicked(item: string) {
+    this.query = item;
+    this.searchQuery();
   }
 
 }

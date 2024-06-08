@@ -59,3 +59,25 @@
     width: 15px;
     height: 15px;
 }
+
+.sizes-conatiner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.size-box {
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.size-cross {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

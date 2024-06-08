@@ -30,5 +30,15 @@
             <p class="reviewsCount">{{cloth.reviewsCount}} Ratings</p>
         </div>
         <p>{{cloth.price | currency:"INR"}}</p>
+        <div class="size-section">
+            <p>Avaiable Sizes</p>
+            <div class="sizes-conatiner">
+                <div class="size-box" *ngFor="let clothingSize of clothingSizes">
+                    <img class="size-cross" src="../../../assets/diagonal.svg" alt=""
+                        *ngIf="!containsSizeOrNot(clothingSize,cloth.sizes)">
+                    <p>{{clothingSize}}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

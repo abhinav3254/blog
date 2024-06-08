@@ -17,6 +17,8 @@ export class SingleProductComponent implements OnInit {
 
   productId: number = 0;
   cloth: Cloth | undefined;
+  sizes: string[] = [];
+  clothingSizes: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
 
 
@@ -35,5 +37,20 @@ export class SingleProductComponent implements OnInit {
       }
     );
   }
+
+  createSizeArray(sizes: string): string[] {
+    return sizes.split(',');
+  }
+
+  containsSizeOrNot(size: string, apiSize: string): boolean {
+    const sizes = this.createSizeArray(apiSize);
+    for (let i = 0; i < sizes.length; i++) {
+      if (size === sizes[i].trim()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
 }

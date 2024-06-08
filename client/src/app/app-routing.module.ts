@@ -7,7 +7,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product/:id', component: SingleProductComponent },
-  { path: 'query', component: SearchResultComponent }
+  { path: 'search', component: SearchResultComponent }
 ];
 
 @NgModule({

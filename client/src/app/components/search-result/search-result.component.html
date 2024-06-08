@@ -1,1 +1,23 @@
-<p>{{query}}</p>
+<div *ngIf="cloths && cloths.length > 0; else empty">
+    <div class="cloth-conatiner">
+        <div *ngFor="let cloth of cloths" class="single-cloth" (click)="navigateToProduct(cloth.clothId)">
+            <img src={{cloth.image}} alt="">
+            <p>{{reduceClothLength(cloth.name)}}</p>
+            <p>{{cloth.clothPrice | currency:'INR'}}</p>
+        </div>
+    </div>
+
+    <div *ngIf="cloths.length > 5">
+        <div class="pagination" *ngIf="clothsResponse">
+            <button (click)="decrementPage()" [disabled]="page == 0">prev</button>
+            <button (click)="incrementPage()" [disabled]="page == clothsResponse.totalPages-1">next</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #empty>
+    <div class="else-block">
+        <img src="../../../assets/empty.svg" alt="">
+        <p>Not found by <span>{{query}}</span> </p>
+    </div>
+</ng-template>

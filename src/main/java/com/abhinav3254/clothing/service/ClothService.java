@@ -51,4 +51,18 @@ public class ClothService {
         if (clothOptional.isEmpty()) throw new CustomException("Id not found", HttpStatus.NOT_FOUND);
         return clothOptional.get();
     }
+
+    public Page<ClothDTO> getByQuery(String query,int page,int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Cloth> clothsPage = clothRepository.searchCloths(query,pageable);
+
+        return clothsPage.map(cloth -> {
+            ClothDTO clothDTO = new ClothDTO();
+            clothDTO.setClothId(cloth.getId());
+            clothDTO.setName(cloth.getProductName());
+            clothDTO.setImage(cloth.getImage1());
+            clothDTO.setClothPrice(cloth.getPrice());
+            return clothDTO;
+        });
+    }
 }
