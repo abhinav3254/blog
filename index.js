@@ -5,7 +5,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { port } = require('./config/config');
 
-const AuthRoute = require('./routes/AuthRoutes')
+const AuthRoute = require('./routes/AuthRoute');
+const UserRoute = require('./routes/UserRoute');
+
+// jwt checker
+const authenticateToken = require('./middleware/JwtTokenCheck');
 
 // connect to db
 require('./db-config/db');
@@ -20,6 +24,7 @@ app.get('', (req, res) => {
 
 
 app.use('/api/v1/auth', AuthRoute);
+app.use('/api/v1/user', authenticateToken, UserRoute);
 
 app.listen(port, () => {
     console.log(`server is up and listening on ${port}`);

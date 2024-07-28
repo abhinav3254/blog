@@ -44,8 +44,25 @@ const UserSchema = new Schema({
     termsCondition: {
         type: Boolean,
         required: true
+    },
+    dateOfBirth: {
+        type: Date
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    profilePicture: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String
+    },
+    country: {
+        type: String
     }
-});
+}, { timestamps: true });
 
 const users = mongoose.model('users', UserSchema);
 

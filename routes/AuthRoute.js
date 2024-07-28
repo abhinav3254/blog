@@ -6,6 +6,7 @@ const saltRounds = 10;
 const dotenv = require('dotenv');
 dotenv.config();
 const jwt = require('jsonwebtoken');
+const upload = require('../middleware/uploadMiddleware');
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get('', (req, res) => {
 });
 
 
-router.post('/register', async (req, res) => {
+router.post('/register', upload, async (req, res) => {
     try {
         const user = req.body;
 
@@ -22,7 +23,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'Request body cannot be empty' });
         }
 
-        const { username, email, password, phoneNumber, termsCondition, firstName, lastName } = user;
+        const { username, email, password, phoneNumber, termsCondition, firstName, lastName, gender, dateOfBirth, city, country } = user;
 
         if (!termsCondition) {
             return res.status(400).json({ message: 'You must accept the terms and conditions to proceed' });
@@ -48,6 +49,9 @@ router.post('/register', async (req, res) => {
         // Hash the password
         const hashPassword = await bcrypt.hash(password, saltRounds);
 
+        // Handle profile picture upload
+        const profilePicture = req.file ? req.file.path : null; // Save the path to the file
+
         // Create and save new user
         const newUser = new users({
             username,
@@ -57,7 +61,12 @@ router.post('/register', async (req, res) => {
             phoneNumber,
             password: hashPassword,
             role: 'USER',
-            termsCondition
+            termsCondition,
+            profilePicture,
+            gender,
+            dateOfBirth,
+            city,
+            country
         });
 
         const savedUser = await newUser.save();
@@ -67,6 +76,7 @@ router.post('/register', async (req, res) => {
         return res.status(500).json({ message: 'An error occurred while processing your request. Please try again later.', error: err.message });
     }
 });
+
 
 
 
