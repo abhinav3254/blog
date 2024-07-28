@@ -1,5 +1,5 @@
 const express = require('express');
-const users = require('../schema/User');
+const users = require('../models/User');
 const bcrypt = require('bcrypt');
 const { jwtSecret } = require('../config/config');
 const saltRounds = 10;
