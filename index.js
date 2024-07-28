@@ -3,7 +3,7 @@ const app = express();
 const connectToDB = require('./db-config/db')
 connectToDB;
 
-const users = require('./schema/users');
+const users = require('./schema/User');
 
 app.get('', (req, res) => {
     return res.json({ message: 'Hola!!' });
@@ -11,7 +11,13 @@ app.get('', (req, res) => {
 
 
 app.post('/api/v1/register', (req, res) => {
-    // const {}
+    const user = req.body();
+    if (user.termsConidtion) {
+
+
+    } else {
+        return res.status(400).json({ message: 'Please accept terms and condition' });
+    }
 });
 
 const PORT = 8080;
