@@ -41,7 +41,7 @@ const UserSchema = new Schema({
         required: true,
         trim: true
     },
-    termsConidtion: {
+    termsCondition: {
         type: Boolean,
         required: true
     }
