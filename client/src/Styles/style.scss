@@ -1,0 +1,47 @@
+.header {
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  box-shadow: 0 0 20px black;
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .filter{
+    height: auto;
+  }
+  .profileSec {
+    display: flex;
+    justify-content: space-between;
+    button{
+      margin: 5px 5px;
+    }
+    .profile {
+      margin-left: 30px;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      border: 1px solid black;
+      overflow: hidden;
+      img {
+        height: 40px;
+        width: 40px;
+      }
+      .profileOverlay{
+        display: flex;
+        flex-direction: column;
+        .p-overlaypanel .p-overlaypanel-content {
+          padding: 0 !important;
+          .nav{
+            padding: 5px;
+            border-bottom:1px solid grey;
+          }
+        }
+        
+      }
+    }
+  }
+}
+.home{
+  padding: 50px 100px;
+}

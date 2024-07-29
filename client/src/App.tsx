@@ -1,18 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Button } from 'primereact/button';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import './App.scss';
+import Header from './Component/header';
+import Layout from './Component/layout';
+import { store } from './store';
 
 function App() {
   return (
     <div className="App">
-      <Button label="Primary" />
-      <Button label="Secondary" severity="secondary" />
-      <Button label="Success" severity="success" />
-      <Button label="Info" severity="info" />
-      <Button label="Warning" severity="warning" />
-      <Button label="Help" severity="help" />
-      <Button label="Danger" severity="danger" />
+       <Provider store={store}>
+       <BrowserRouter >
+      <Header></Header>
+      <Layout></Layout>
+      </BrowserRouter>
+      </Provider>
     </div>
   );
 }

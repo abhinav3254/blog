@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
 /* 
   Prime React Configuration
  */
-import "primereact/resources/themes/md-light-indigo/theme.css"; //theme
-import "primereact/resources/primereact.min.css"; //core css
-import "primeicons/primeicons.css"; //icons
 import "primeflex/primeflex.css"; //flex
+import "primeicons/primeicons.css"; //icons
+import "primereact/resources/primereact.min.css"; //core css
+import "primereact/resources/themes/md-light-indigo/theme.css"; //theme
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
