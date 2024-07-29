@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
+const { dbUrl } = require('../config/config');
+
+
 
 
 const connectToDB = async () => {
 
     try {
-        const connection = await mongoose.connect(`mongodb+srv://mitesh908:mitesh908@cluster0.6yr3wix.mongodb.net/`);
+        const connection = await mongoose.connect(dbUrl);
         console.log(`connected to db ${connection.connection.host}`)
     } catch (err) {
         console.log(err);

@@ -1,26 +1,31 @@
 const express = require('express');
 const app = express();
-const connectToDB = require('./db-config/db')
-connectToDB;
+const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
+const { port } = require('./config/config');
 
-const users = require('./schema/User');
+const AuthRoute = require('./routes/AuthRoute');
+const UserRoute = require('./routes/UserRoute');
+
+// jwt checker
+const authenticateToken = require('./middleware/JwtTokenCheck');
+
+// connect to db
+require('./db-config/db');
+
+app.use(cors());
+app.use(express.json())
+
 
 app.get('', (req, res) => {
     return res.json({ message: 'Hola!!' });
 });
 
 
-app.post('/api/v1/register', (req, res) => {
-    const user = req.body();
-    if (user.termsConidtion) {
+app.use('/api/v1/auth', AuthRoute);
+app.use('/api/v1/user', authenticateToken, UserRoute);
 
-
-    } else {
-        return res.status(400).json({ message: 'Please accept terms and condition' });
-    }
-});
-
-const PORT = 8080;
-app.listen(PORT, () => {
-    console.log(`server is up and listening on ${PORT}`);
+app.listen(port, () => {
+    console.log(`server is up and listening on ${port}`);
 });
