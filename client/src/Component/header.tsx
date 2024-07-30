@@ -5,11 +5,11 @@ import { InputText } from "primereact/inputtext";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Ref, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { filter, login, logout } from "../appSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { filter, logout } from "../appSlice";
+import logo from '../assets/logo.svg';
 import userDp from "../assets/userDp.png";
 import { RootState } from "../store";
-import logo from '../assets/logo.svg';
 import "../Styles/style.scss";
 
 const Header = () => {
@@ -17,6 +17,7 @@ const Header = () => {
   const searchValue = useSelector((state: RootState) => state.App.searchValue);
   const dispatch = useDispatch();
   const profileBar: Ref<any> = useRef(null);
+  const navigate = useNavigate()
   return (
     <div className="header">
       <div className="name">
@@ -45,7 +46,7 @@ const Header = () => {
       </OverlayPanel></>:
       <>
       <div className="profileSec">
-       <Button label="LOG IN" />
+       <Button label="LOG IN" onClick={()=>navigate('/login')}/>
        {/* <Button label="GET STARTED" onClick={(e)=>dispatch(login(FormData))}/> */}
        </div>
       </>

@@ -1,6 +1,5 @@
 import React from 'react';
 import '../Styles/dashboard.scss'; // Ensure this path is correct for your project
-import { SassColor } from 'sass';
 
 const Dashboard: React.FC = () => {
   return (
@@ -29,7 +28,7 @@ const Dashboard: React.FC = () => {
                 <p>
                   Share your story with the world. Create a beautiful, personalized blog that fits your brand. Grow your audience with built-in marketing tools, or transform your passion into revenue by gating access with a paywall.
                 </p>
-                <a className="link link--is-button" href="/templates" aria-label="Get Started">
+                <a className="link link--is-button" href="/signup" aria-label="Get Started">
                   <span className="link__text">Get Started</span>
                 </a>
               </div>

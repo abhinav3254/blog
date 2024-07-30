@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../appSlice';
+import * as AuthService from "../Services/authService";
 import '../Styles/login.scss';
-import logo from '../assets/logo.svg';
-
 const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -11,7 +11,7 @@ const Login = () => {
   });
 
   const dispatch = useDispatch();
-
+const navigate = useNavigate()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -22,7 +22,16 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login(formData));
+    AuthService.login(formData)
+    .then((res:any) => {
+      console.log('res',res);
+      localStorage.setItem('token',res.data.token)
+      dispatch(login(res.data.token));
+      navigate('/blog')
+    })
+    .catch((err) => {
+      console.log('err',err);
+    });
   };
 
   return (

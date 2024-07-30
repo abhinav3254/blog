@@ -1,41 +1,38 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FaBookmark, FaComment, FaHeart, FaUserCircle } from 'react-icons/fa';
+import { getBlogs } from '../Services/authService';
 import '../Styles/blog.scss';
-import { FaUserCircle, FaHeart, FaComment, FaBookmark } from 'react-icons/fa';
 
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 5;
+  const [blogs, setBlogs] = useState<any>([]);
 
-  const posts = [
-    { id: 1, user: 'User1', content: 'Content1' },
-    { id: 2, user: 'User2', content: 'Content2' },
-    { id: 3, user: 'User3', content: 'Content3' },
-    { id: 4, user: 'User4', content: 'Content4' },
-    { id: 5, user: 'User5', content: 'Content5' },
-    { id: 6, user: 'User6', content: 'Content6' },
-    { id: 7, user: 'User7', content: 'Content7' },
-    { id: 8, user: 'User8', content: 'Content8' },
-    { id: 9, user: 'User9', content: 'Content9' },
-    { id: 10, user: 'User10', content: 'Content10' },
-    { id: 11, user: 'User11', content: 'Content11' },
-    { id: 12, user: 'User12', content: 'Content12' },
-    { id: 13, user: 'User13', content: 'Content13' },
-    { id: 14, user: 'User14', content: 'Content14' },
-  ];
+useEffect(()=>{
+  getBlogs().then((res:any)=>{
+    console.log(res)
+    setBlogs(res.data.blogs)
+  })
+},[])
+
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = blogs.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="blog-container">
-      {currentPosts.map((post) => (
-        <div key={post.id} className="post-card">
+      {currentPosts.map((post:any) => (
+        <div key={post._id} className="post-card">
           <div className="post-header">
+            <h4 className='title'>{post.title}</h4>
+            <div className='mentions'>Posted By
             <FaUserCircle className="user-icon" />
-            <span>{post.user}</span>
+            <span>{post.author.username}</span>
+            </div>
+            
           </div>
           <div className="post-content">{post.content}</div>
           <div className="post-footer">
@@ -48,7 +45,7 @@ const Blog = () => {
         </div>
       ))}
       <div className="pagination">
-        {Array.from({ length: Math.ceil(posts.length / postsPerPage) }, (_, i) => (
+        {Array.from({ length: Math.ceil(blogs.length / postsPerPage) }, (_, i) => (
           <button
             key={i}
             onClick={() => paginate(i + 1)}

@@ -11,12 +11,12 @@ const UserSchema = new Schema({
     },
     firstName: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     lastName: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     email: {
@@ -28,7 +28,7 @@ const UserSchema = new Schema({
     },
     phoneNumber: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     password: {
@@ -38,19 +38,19 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     termsCondition: {
         type: Boolean,
-        required: true
+        required: false
     },
     dateOfBirth: {
         type: Date
     },
     gender: {
         type: String,
-        required: true
+        required: false
     },
     profilePicture: {
         type: String,

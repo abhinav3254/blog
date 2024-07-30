@@ -15,7 +15,9 @@ router.get('', (req, res) => {
 });
 
 
-router.post('/register', upload.single('profilePicture'), async (req, res) => {
+router.post('/register'
+    // , upload.single('profilePicture')
+    , async (req, res) => {
     try {
         const user = req.body;
 
@@ -25,9 +27,9 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
 
         const { username, email, password, phoneNumber, termsCondition, firstName, lastName, gender, dateOfBirth, city, country } = user;
 
-        if (!termsCondition) {
-            return res.status(400).json({ message: 'You must accept the terms and conditions to proceed' });
-        }
+        // if (!termsCondition) {
+        //     return res.status(400).json({ message: 'You must accept the terms and conditions to proceed' });
+        // }
 
         // Check if username already exists
         const existingUserByUsername = await users.findOne({ username });
@@ -55,18 +57,18 @@ router.post('/register', upload.single('profilePicture'), async (req, res) => {
         // Create and save new user
         const newUser = new users({
             username,
-            firstName,
-            lastName,
+            // firstName,
+            // lastName,
             email,
-            phoneNumber,
+            // phoneNumber,
             password: hashPassword,
             role: 'USER',
-            termsCondition,
-            profilePicture,
-            gender,
-            dateOfBirth,
-            city,
-            country
+            // termsCondition,
+            // profilePicture,
+            // gender,
+            // dateOfBirth,
+            // city,
+            // country
         });
 
         const savedUser = await newUser.save();

@@ -17,9 +17,17 @@
   
       .post-header {
         display: flex;
+        flex-direction: column;
         align-items: center;
         margin-bottom: 10px;
-  
+        h4{
+          
+        }
+  .mentions{
+    flex-direction: column;
+    align-items: center;
+    float: right;
+  }
         .user-icon {
           font-size: 24px;
           margin-right: 10px;

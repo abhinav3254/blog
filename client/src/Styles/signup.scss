@@ -14,9 +14,9 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px; // Adjusted for better layout
+    max-width: 500px; // Adjusted for better layout
     width: 100%;
-    margin: 0 auto; // Center the form horizontally
+    // margin: 0 auto; // Center the form horizontally
     
     h2 {
       margin-bottom: 20px;
@@ -24,41 +24,48 @@
     }
   
     form {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); // Two columns for the form
-      gap: 20px; // Spacing between fields
+    //   display: grid;
+    //   grid-template-columns: repeat(2, 1fr); // Two columns for the form
+    //   gap: 20px; // Spacing between fields
   
-      .form-row {
-        display: flex;
-        flex-wrap: wrap; // Allows wrapping to next line if needed
+    //   .form-row {
+    //     display: flex;
+    //     flex-wrap: wrap; // Allows wrapping to next line if needed
         
-        label {
-          flex: 1 1 100%; // Full width for labels
-          margin-bottom: 15px;
+    //     label {
+    //       flex: 1 1 100%; // Full width for labels
+    //       margin-bottom: 15px;
           
-          input[type="text"],
-          input[type="email"],
-          input[type="password"],
-          input[type="date"],
-          select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-          }
+    //       input[type="text"],
+    //       input[type="email"],
+    //       input[type="password"],
+    //       input[type="date"],
+    //       select {
+    //         width: 100%;
+    //         padding: 8px;
+    //         margin-top: 5px;
+    //         border: 1px solid #ddd;
+    //         border-radius: 4px;
+    //       }
   
-          input[type="checkbox"] {
-            margin-right: 5px;
-          }
-        }
-      }
-  
+    //       input[type="checkbox"] {
+    //         margin-right: 5px;
+    //       }
+    //     }
+    //   }
+    label{
+      font-size: 15px;
+    }
+  input{
+    margin: 20px 0px;
+    width: 300px;
+    border-radius: 10px;
+  }
       button {
-        grid-column: span 2; // Make the button span across both columns
+        margin-top: 20px;
+        width: 100px;
         padding: 10px;
         border: none;
-        width: 100%;
         border-radius: 4px;
         background-color: #575d63;
         color: white;

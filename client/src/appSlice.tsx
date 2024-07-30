@@ -1,8 +1,10 @@
-import { createSlice , PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   'searchValue' : "",
-  'loggedIn':false
+  'loggedIn':false,
+  'userId':"",
+  'token':''
 }
 
 interface AppState {
@@ -13,6 +15,8 @@ interface AppState {
 interface LoginPayload {
   username: string;
   password: string;
+  userId :any;
+  token:any
 }
 
 
@@ -33,9 +37,9 @@ export const AppSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<LoginPayload>) => {
+    login: (state, action: PayloadAction<any>) => {
       state.loggedIn = true;
-      // Add any additional login logic here
+      state.token = action.payload.token;
     },
     logout: (state) => {
       state.loggedIn = false;

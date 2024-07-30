@@ -7,7 +7,7 @@ const layout = () => {
         return useRoutes(routes);;
       };
   return (
-    <div>
+    <div className="layout">
     <Suspense fallback={<div>Loading...</div>}>
       <AppRoutes />
      </Suspense>

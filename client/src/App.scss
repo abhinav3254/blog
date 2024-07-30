@@ -11,7 +11,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.layout{
+  min-height: 800px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -34,10 +36,12 @@
       border-bottom:1px solid rgb(24, 23, 23);
     }
 }
-
-.p-inputtext {
-  padding: 5px 40px;
+.header{
+  .p-inputtext {
+    padding: 10px 50px;
+  }
 }
+
 .p-button{
   padding: 5px 10px !important;
 }
