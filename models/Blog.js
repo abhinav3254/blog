@@ -30,10 +30,18 @@ const BlogSchema = new Schema({
     },
     published: {
         type: Boolean,
-        default: false
+        default: true
     },
     publishedDate: {
-        type: Date
+        type: Date,
+        default:Date.now()
+    },
+    like: {
+        type:Number,
+        default:0
+    },
+    readTime: {
+        type:Number
     },
     comments: [{
         type: Schema.Types.ObjectId,
