@@ -97,3 +97,6 @@
   
 - **Get Media**
   - `GET /api/media/:mediaId`
+
+
+  bookmarks and my posts and 

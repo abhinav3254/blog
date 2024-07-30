@@ -15,7 +15,7 @@ router.get('', (req, res) => {
 });
 
 
-router.post('/register', upload, async (req, res) => {
+router.post('/register', upload.single('profilePicture'), async (req, res) => {
     try {
         const user = req.body;
 
@@ -50,7 +50,7 @@ router.post('/register', upload, async (req, res) => {
         const hashPassword = await bcrypt.hash(password, saltRounds);
 
         // Handle profile picture upload
-        const profilePicture = req.file ? req.file.path : null; // Save the path to the file
+        const profilePicture = req.file ? req.file.path : null;
 
         // Create and save new user
         const newUser = new users({

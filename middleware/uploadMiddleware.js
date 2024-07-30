@@ -23,6 +23,7 @@ const upload = multer({
         }
         cb(new Error('Only image files are allowed.'));
     }
-}).single('profilePicture');
+});
+
 
 module.exports = upload;
