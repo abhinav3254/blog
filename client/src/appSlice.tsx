@@ -1,21 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice , PayloadAction } from '@reduxjs/toolkit';
+
 const initialState = {
   'searchValue' : "",
   'loggedIn':false
 }
-export const AppSlice = createSlice({
-  name: 'app',
-  initialState: initialState,
-  reducers: {
-    filter:(state,action)=>{
-      state.searchValue = action.payload},
-    logout:(state)=>{
-      state.loggedIn = false
-    },
-    login:(state)=>{
-      state.loggedIn = true
-    }
 
+interface AppState {
+  loggedIn: boolean;
+  searchValue: string;
+}
+
+interface LoginPayload {
+  username: string;
+  password: string;
+}
+
+
+export const AppSlice = createSlice({
+  // name: 'app',
+  // initialState: initialState,
+  // reducers: {
+  //   filter:(state,action)=>{
+  //     state.searchValue = action.payload},
+  //   logout:(state)=>{
+  //     state.loggedIn = false
+  //   },
+  //   login:(state)=>{
+  //     state.loggedIn = true
+  //   }
+
+  // },
+  name: 'app',
+  initialState,
+  reducers: {
+    login: (state, action: PayloadAction<LoginPayload>) => {
+      state.loggedIn = true;
+      // Add any additional login logic here
+    },
+    logout: (state) => {
+      state.loggedIn = false;
+    },
+    filter: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
+    },
   },
 })
 

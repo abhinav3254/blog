@@ -1,0 +1,124 @@
+.dashboard {
+    .hero-block {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      min-height: 50vh;
+      background-color: #f4f4f4; // Set a default background color if needed
+      margin-bottom: 20px;
+  
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+  
+        &__image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: -1;
+  
+          &--bottom {
+            z-index: -2;
+          }
+        }
+      }
+  
+      .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px; // Adjust as needed
+        position: relative;
+        z-index: 1;
+  
+        &__text {
+          flex: 1;
+          max-width: 50%;
+          padding-right: 20px; // Space between text and image
+  
+          h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+          }
+  
+          p {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+          }
+  
+          .link--is-button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+          }
+        }
+  
+        &__image {
+          flex: 1;
+          max-width: 50%;
+          text-align: right;
+  
+          img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+      }
+    }
+  
+    .cards-section {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 20px;
+      background-color: #fff;
+      margin-top: 20px;
+  
+      .card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 10px;
+        flex: 1 1 calc(25% - 40px); // 4 cards in a row
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+  
+        img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 5px;
+          margin-bottom: 10px;
+        }
+  
+        .card-content {
+          h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+  
+          p {
+            font-size: 1rem;
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+  
