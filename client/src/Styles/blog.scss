@@ -10,59 +10,106 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
-    
+    position: relative;
+
     &:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-  }
 
-  .blog-section {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 1rem;
-
-    &__content {
-      flex: 1;
+    .blog-section {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
       padding: 1rem;
-
-      h2 {
-        margin-bottom: 0.5rem;
-      }
-
-      p {
-        line-height: 1.5;
-      }
-    }
-
-    &__image {
-      flex: 1;
       position: relative;
 
-      .background-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        // background: url('/https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-Cityscape-Photography-8.jpg');
-        background-size: cover;
-        opacity: 0.5;
-        z-index: 1;
+      &__content {
+        flex: 1;
+        padding: 1rem;
+
+        h2 {
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          line-height: 1.5;
+        }
+
+        .blog-section__footer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 1rem;
+
+          .view-more {
+            background-color: #bbbdc0;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            margin-right: 0.5rem;
+          }
+
+          .heart-button {
+            background-color: #f84545;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .bookmark-button {
+            background-color: #f3aa4b;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
       }
 
-      img {
+      &__image {
+        flex: 1;
         position: relative;
-        z-index: 2;
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-      }
-    }
 
-    &--reverse {
-      flex-direction: row-reverse;
+        .background-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          opacity: 0.5;
+          z-index: 1;
+        }
+
+        img {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          height: auto;
+          border-radius: 8px;
+        }
+      }
+
+      &--reverse {
+        flex-direction: row-reverse;
+      }
     }
   }
 }

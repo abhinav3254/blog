@@ -10,7 +10,7 @@ import { filter, login, logout } from "../appSlice";
 import logo from '../assets/logo.svg';
 import userDp from "../assets/userDp.png";
 import { RootState } from "../store";
-import "../Styles/style.scss";
+import "../Styles/header.scss";
 
 const Header = () => {
   const loggedIn = useSelector((state: RootState) => state.App.loggedIn);
@@ -22,7 +22,7 @@ const Header = () => {
     <div className="header">
       <div className="name">
         <img src={logo} alt="Blog Logo" className="logo__image" />
-        <h3><Link to={"/Home"}>Blogify</Link></h3>
+        <h3><Link to={"/"}>Blogify</Link></h3>
       </div>
       <div className="filter">
         <IconField iconPosition="left">
@@ -47,7 +47,7 @@ const Header = () => {
       <>
       <div className="profileSec">
        <Button label="LOG IN" onClick={()=>navigate('/login')}/>
-       <Button label="GET STARTED" onClick={(e)=>dispatch(login())}/>
+       <Button label="GET STARTED" onClick={()=>navigate('/signup')}/>
        </div>
       </>
       }

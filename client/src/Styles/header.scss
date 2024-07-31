@@ -1,6 +1,109 @@
-.name{
-    display:inline-flex;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white; // Change background color to white
+    border: 1px solid #ddd; // Add border for a square shape
+    border-radius: 0; // Ensure the shape remains square
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optional: Add shadow for better visibility
+  
+    .name {
+      display: inline-flex;
+      align-items: center;
+  
+      .logo__image {
+        width: 40px; // Adjust as needed
+        height: auto;
+        margin-right: 0.5rem;
+      }
+  
+      h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #333; // Adjust text color if needed
+      }
+  
+      a {
+        text-decoration: none;
+        color: inherit; // Inherit text color for links
+      }
+    }
+  
+    .filter {
+      display: flex;
+      align-items: center;
+  
+      .p-iconfield {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+  
+        .p-inputtext {
+          padding: 5px 40px;
+          border: none;
+          box-shadow: none;
+        }
+  
+        .pi {
+          padding: 0.5rem;
+          background-color: #f0f0f0;
+          color: #333;
+          border-right: 1px solid #ddd;
+        }
+      }
+    }
+  
+    .profileSec {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+  
+      .p-button {
+        border: 1px solid #cac4c4;
+        background-color: rgb(239, 240, 237);
+        color: #333;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+  
+        &:hover {
+          background-color: #f0f0f0;
+          color: #000;
+        }
+      }
+  
+      .profile {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+  
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%; // Keep the profile image round
+          border: 1px solid #ddd;
+        }
+      }
+    }
+  }
+  
+  .profileOverlay {
+    .nav {
+      padding: 1rem;
+      border-bottom: 1px solid #b8b1b1;
+      cursor: pointer;
+      color: #333;
+  
+      &:last-child {
+        border-bottom: none;
+      }
+  
+      &:hover {
+        background-color: #d8d0d0;
+      }
+    }
 }
-input{
-    padding: 5px 40px;
-}
+  
