@@ -3,17 +3,17 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: white; // Change background color to white
-    border: 1px solid #ddd; // Add border for a square shape
-    border-radius: 0; // Ensure the shape remains square
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optional: Add shadow for better visibility
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
     .name {
       display: inline-flex;
       align-items: center;
   
       .logo__image {
-        width: 40px; // Adjust as needed
+        width: 40px;
         height: auto;
         margin-right: 0.5rem;
       }
@@ -21,12 +21,12 @@
       h3 {
         margin: 0;
         font-size: 1.5rem;
-        color: #333; // Adjust text color if needed
+        color: #333;
       }
   
       a {
         text-decoration: none;
-        color: inherit; // Inherit text color for links
+        color: inherit;
       }
     }
   
@@ -60,6 +60,7 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      padding-right: 1rem; // Extra padding from the right
   
       .p-button {
         border: 1px solid #cac4c4;
@@ -83,7 +84,7 @@
         img {
           width: 40px;
           height: 40px;
-          border-radius: 50%; // Keep the profile image round
+          border-radius: 50%;
           border: 1px solid #ddd;
         }
       }
@@ -105,5 +106,6 @@
         background-color: #d8d0d0;
       }
     }
-}
+  }
+
   

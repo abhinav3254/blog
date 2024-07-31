@@ -32,7 +32,8 @@ const Header = () => {
       </div>
       {loggedIn ?<>
       <div className="profileSec">
-         <Button label="Create +" />
+         <Button label="BLOGS"  onClick={()=>navigate('/blog')} />
+         <Button label="CREATE +"  onClick={()=>navigate('/create')} />
         <div className="profile" onClick={(e) => profileBar.current.toggle(e)}>
           <img src={userDp} alt="profile" />
         </div>
@@ -40,7 +41,8 @@ const Header = () => {
       
       <OverlayPanel ref={profileBar} className="profileOverlay">
         <div className="nav"><Link to={"/profile"}>Profile</Link></div>
-        <div className="nav">My Posts</div>
+        <div className="nav" onClick={()=>navigate('/myblog')}>My Posts</div>
+        <div className="nav" onClick={()=>navigate('/myblog')}>Bookmarks</div>
         <div className="nav">Settings</div>
         <div className="nav"  onClick={(e)=>dispatch(logout())}>Sign Out</div>
       </OverlayPanel></>:
