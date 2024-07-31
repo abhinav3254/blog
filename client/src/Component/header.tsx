@@ -6,7 +6,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Ref, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { filter, logout } from "../appSlice";
+import { filter, login, logout } from "../appSlice";
 import logo from '../assets/logo.svg';
 import userDp from "../assets/userDp.png";
 import { RootState } from "../store";
@@ -47,7 +47,7 @@ const Header = () => {
       <>
       <div className="profileSec">
        <Button label="LOG IN" onClick={()=>navigate('/login')}/>
-       {/* <Button label="GET STARTED" onClick={(e)=>dispatch(login(FormData))}/> */}
+       <Button label="GET STARTED" onClick={(e)=>dispatch(login())}/>
        </div>
       </>
       }

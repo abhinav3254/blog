@@ -1,59 +1,50 @@
-import { useEffect, useState } from 'react';
-import { FaBookmark, FaComment, FaHeart, FaUserCircle } from 'react-icons/fa';
-import { getBlogs } from '../Services/authService';
+import React from 'react';
 import '../Styles/blog.scss';
 
 const Blog = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5;
-  const [blogs, setBlogs] = useState<any>([]);
-
-useEffect(()=>{
-  getBlogs().then((res:any)=>{
-    console.log(res)
-    setBlogs(res.data.blogs)
-  })
-},[])
-
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = blogs.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const handleCardClick = (url: string) => {
+    window.location.href = url;
+  };
 
   return (
-    <div className="blog-container">
-      {currentPosts.map((post:any) => (
-        <div key={post._id} className="post-card">
-          <div className="post-header">
-            <h4 className='title'>{post.title}</h4>
-            <div className='mentions'>Posted By
-            <FaUserCircle className="user-icon" />
-            <span>{post.author.username}</span>
-            </div>
-            
+    <div className="blog">
+      <div className="blog-card" onClick={() => handleCardClick('/path/to/detail/page1')}>
+        <section className="blog-section">
+          <div className="blog-section__content">
+            <h2>Heading 1</h2>
+            <p>Description for the first section. This text will be on the right side with the image on the left.</p>
           </div>
-          <div className="post-content">{post.content}</div>
-          <div className="post-footer">
-            <div className="post-actions">
-              <FaHeart className="action-icon" />
-              <FaComment className="action-icon" />
-            </div>
-            <FaBookmark className="bookmark-icon" />
+          <div className="blog-section__image">
+            <div className="background-image"></div>
+            <img src="https://www.brandignity.com/wp-content/uploads/2020/12/digital-marketing-photography.jpg" alt="Image 1" />
           </div>
-        </div>
-      ))}
-      <div className="pagination">
-        {Array.from({ length: Math.ceil(blogs.length / postsPerPage) }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => paginate(i + 1)}
-            className={`page-number ${currentPage === i + 1 ? 'active' : ''}`}
-          >
-            {i + 1}
-          </button>
-        ))}
+        </section>
+      </div>
+
+      <div className="blog-card" onClick={() => handleCardClick('/path/to/detail/page2')}>
+        <section className="blog-section blog-section--reverse">
+          <div className="blog-section__content">
+            <h2>Heading 2</h2>
+            <p>Description for the second section. This text will be on the left side with the image on the right.</p>
+          </div>
+          <div className="blog-section__image">
+            <div className="background-image"></div>
+            <img src="https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-landscape-Photography-25.jpg" alt="Image 2" />
+          </div>
+        </section>
+      </div>
+
+      <div className="blog-card" onClick={() => handleCardClick('/path/to/detail/page3')}>
+        <section className="blog-section">
+          <div className="blog-section__content">
+            <h2>Heading 3</h2>
+            <p>Description for the third section. This text will be on the right side with the image on the left.</p>
+          </div>
+          <div className="blog-section__image">
+            <div className="background-image"></div>
+            <img src="https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-landscape-Photography-26.jpg" alt="Image 3" />
+          </div>
+        </section>
       </div>
     </div>
   );

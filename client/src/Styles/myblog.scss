@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Faustina:wght@400&display=swap');
+
+.my-blog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+
+  &__image {
+    width: 100%;
+    height: auto; // Ensure the image maintains its aspect ratio
+    margin-bottom: 1.5rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover; // Ensure the image covers the container without distortion
+    }
+  }
+
+  &__content {
+    text-align: justify; // Justify the text to align both left and right edges
+    text-justify: inter-word; // Improve justification of text
+
+    &__title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    &__description {
+      font-family: 'Faustina', serif;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      /* Optional: Add padding for better readability */
+      padding: 0 1rem; // Adjust as needed
+    }
+  }
+}

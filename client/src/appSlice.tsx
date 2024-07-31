@@ -21,33 +21,33 @@ interface LoginPayload {
 
 
 export const AppSlice = createSlice({
-  // name: 'app',
-  // initialState: initialState,
-  // reducers: {
-  //   filter:(state,action)=>{
-  //     state.searchValue = action.payload},
-  //   logout:(state)=>{
-  //     state.loggedIn = false
-  //   },
-  //   login:(state)=>{
-  //     state.loggedIn = true
-  //   }
-
-  // },
   name: 'app',
-  initialState,
+  initialState: initialState,
   reducers: {
-    login: (state, action: PayloadAction<any>) => {
-      state.loggedIn = true;
-      state.token = action.payload.token;
+    filter:(state,action)=>{
+      state.searchValue = action.payload},
+    logout:(state)=>{
+      state.loggedIn = false
     },
-    logout: (state) => {
-      state.loggedIn = false;
-    },
-    filter: (state, action: PayloadAction<string>) => {
-      state.searchValue = action.payload;
-    },
+    login:(state)=>{
+      state.loggedIn = true
+    }
+
   },
+  // name: 'app',
+  // initialState,
+  // reducers: {
+  //   login: (state, action: PayloadAction<any>) => {
+  //     state.loggedIn = true;
+  //     state.token = action.payload.token;
+  //   },
+  //   logout: (state) => {
+  //     state.loggedIn = false;
+  //   },
+  //   filter: (state) => {
+  //     state.searchValue = action.payload;
+  //   },
+  // },
 })
 
 // Action creators are generated for each case reducer function

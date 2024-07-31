@@ -5,6 +5,8 @@ const DashboardElement = lazy(() => import('./dashboard'));
 const SignupElement = lazy(() => import('./signup'));
 const LoginElement = lazy(() => import('./login'));
 const BlogElement = lazy(() => import('./blog'));
+const CreateBlogElement = lazy(() => import('./createBlog'));
+const MyBlogElement = lazy(() => import('./myblog'));
 
 
 const routes = [
@@ -14,6 +16,8 @@ const routes = [
     { path: '/signup', element: <SignupElement /> },
     { path: '/login', element: <LoginElement /> },
     { path: '/blog', element: <BlogElement /> },
+    { path: '/create', element: <CreateBlogElement /> },
+    { path: '/myblog', element: <MyBlogElement /> },
 
   ]
   export default routes
