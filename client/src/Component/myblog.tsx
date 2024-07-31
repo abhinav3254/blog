@@ -1,7 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Styles/myblog.scss'; // Import your custom styles
+import { Avatar } from 'primereact/avatar';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 
 const MyBlog = () => {
+  const [visible, setVisible] = useState(false);
+
+  const footerContent = (
+    <div className="dialog-footer">
+      <Button label="LIKE" icon="pi pi-heart" onClick={() => setVisible(false)} autoFocus />
+      <Button label="DELETE" icon="pi pi-trash" onClick={() => setVisible(false)} />
+    </div>
+  );
+
+  const dialogContent = [
+    {
+      avatar: "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png",
+      name: "Amy Elsner",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+      avatar: "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png",
+      name: "Amy Elsner",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+      avatar: "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png",
+      name: "Amy Elsner",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    }
+  ];
+
   return (
     <div className="my-blog">
       <div className="my-blog__image">
@@ -27,7 +57,28 @@ const MyBlog = () => {
         <p className="my-blog__description">
           Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id in libero. Nam consectetur urna at orci cursus, at venenatis sapien varius.
         </p>
-        
+
+        <div className="card flex justify-content-center">
+          <Button label="Comments" icon="pi pi-external-link" onClick={() => setVisible(true)} />
+          <Dialog visible={visible} modal style={{ width: '50rem' }} onHide={() => setVisible(false)}>
+            <div className="dialog-content">
+              {dialogContent.map((content, index) => (
+                <div className="card-content" key={index}>
+                  <div className="inline-flex align-items-center justify-content-center gap-2">
+                    <Avatar image={content.avatar} shape="circle" />
+                    <span className="font-bold">{content.name}</span>
+                  </div>
+                  <p className="m-0">
+                    {content.text}
+                  </p>
+                  <div className="dialog-footer">
+                     {footerContent}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Dialog>
+        </div>
       </div>
     </div>
   );

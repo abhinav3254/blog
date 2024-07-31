@@ -3,13 +3,13 @@ import '../Styles/blog.scss';
 import { FaBookmark, FaHeart } from 'react-icons/fa';
 
 const Blog = () => {
-  const handleCardClick = (url: string) => {
-    window.location.href = url;
+  const handleCardClick = () => {
+    window.location.href = '/myblog';
   };
 
   return (
     <div className="blog">
-      <div className="blog-card" onClick={() => handleCardClick('/path/to/detail/page1')}>
+      <div className="blog-card" onClick={handleCardClick}>
         <section className="blog-section">
           <div className="blog-section__content">
             <h2>Heading 1</h2>
@@ -33,7 +33,7 @@ const Blog = () => {
         </section>
       </div>
 
-      <div className="blog-card" onClick={() => handleCardClick('/path/to/detail/page2')}>
+      <div className="blog-card" onClick={handleCardClick}>
         <section className="blog-section blog-section--reverse">
           <div className="blog-section__content">
             <h2>Heading 2</h2>
@@ -55,7 +55,7 @@ const Blog = () => {
         </section>
       </div>
 
-      <div className="blog-card" onClick={() => handleCardClick('/path/to/detail/page3')}>
+      <div className="blog-card" onClick={handleCardClick}>
         <section className="blog-section">
           <div className="blog-section__content">
             <h2>Heading 3</h2>
@@ -76,6 +76,29 @@ const Blog = () => {
           </div>
         </section>
       </div>
+
+      <div className="blog-card" onClick={handleCardClick}>
+        <section className="blog-section blog-section--reverse">
+          <div className="blog-section__content">
+            <h2>Heading 4</h2>
+            <p>Description for the second section. This text will be on the left side with the image on the right.Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id in libero. Nam consectetur urna at orci cursus, at venenatis sapien varius.Morbi ac eros eu elit volutpat dictum.interdum pretium a nec dolor.Nam consectetur urna at orci cursus, at venenatis sapien varius.</p>
+            <div className="blog-section__footer">
+              <button className="view-more">View More</button>
+              <button className="heart-button">
+                <FaHeart />
+              </button>
+              <button className="bookmark-button">
+                <FaBookmark />
+              </button>
+            </div>
+          </div>
+          <div className="blog-section__image">
+            <div className="background-image"></div>
+            <img src="https://wallpapers.com/images/hd/lakeside-car-full-desktop-screen-hd-ffduevjvagzqhrhy.jpg" alt="Image 2" />
+          </div>
+        </section>
+      </div>
+
     </div>
   );
 };

@@ -108,6 +108,32 @@ const Dashboard: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      <div className="hero-block">
+        <div className="hero-content">
+          <div className="hero-content__image">
+            <picture>
+              <img decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj8zShnQnkvw2CLLl1I3eOtegJQRbb0qhKyQ&s" alt="Another Image" />
+            </picture>
+          </div>
+          <div className="hero-content__image">
+            <picture>
+              <img decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxTrQwr0GnYAkytbUF6e1P5xe3OZzNX5auQ&s" alt="Another Image" />
+            </picture>
+          </div>
+          <div className="hero-content__image">
+            <picture>
+              <img decoding="async" src="https://cdn.pixabay.com/photo/2024/05/11/11/05/scientist-8754753_1280.jpg" alt="Another Image" />
+            </picture>
+          </div>
+          <div className="hero-content__text">
+            <h1>Another Section</h1>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis ex at tortor vulputate, vel dictum orci malesuada. 
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
