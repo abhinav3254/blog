@@ -1,3 +1,4 @@
+import { Button } from 'primereact/button';
 import { useEffect, useState } from 'react';
 import { FaBookmark, FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ const Blog = () => {
     // window.location.href = '/myblog';
   };
   const[blogs,setBlogs]=useState<any>()
+  const[currentPage,setcurrentPage]=useState<any>(1)
   // const toast:any = useRef(null);
 
   // const showToast = (type:string,message:string) => {
@@ -23,7 +25,7 @@ const Blog = () => {
     getAllByAllBlogs()
   },[])
 const getAllByAllBlogs=()=>{
-  getBlogs().then((res:any) => {
+  getBlogs(currentPage).then((res:any) => {
     console.log(res)
     setBlogs(res.data.blogs)
     console.log(blogs)
@@ -35,13 +37,15 @@ const getAllByAllBlogs=()=>{
 }
   return (
     <div className="blog">
+      <Button onClick={()=>{setcurrentPage(currentPage+1);getAllByAllBlogs()}}>Next page</Button>
       {
 blogs&&blogs.map((blog:any)=>{
   return(<div className="blog-card" onClick={()=>{handleCardClick(blog._id)}}>
         <section className="blog-section">
           <div className="blog-section__content">
             <h2>{blog.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            {/* <div dangerouslySetInnerHTML={{ __html: blog.content }} /> */}
+            {blog.description}
             <div className="blog-section__footer">
               <button className="view-more">View More</button>
               <button className="heart-button">
@@ -54,7 +58,7 @@ blogs&&blogs.map((blog:any)=>{
           </div>
           <div className="blog-section__image">
             <div className="background-image"></div>
-            <img src="https://www.brandignity.com/wp-content/uploads/2020/12/digital-marketing-photography.jpg" alt="Image 1" />
+            <img src={"http://localhost:8080/"+blog.imageUrl} alt='Image'/>
           </div>
         </section>
       </div>)

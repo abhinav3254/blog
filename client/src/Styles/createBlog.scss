@@ -1,87 +1,111 @@
 .create-blog {
+  display: flex;
+  justify-content: flex-end; // Align content to the right
+  align-items: center;
+  min-height: 100vh;
+  padding: 5rem;
+  position: relative;
+  overflow: hidden; // Ensure no overflow for the background
+  .flex {
+    margin-bottom: 20px;
+    .title {
+      width: 70%;
+      margin-right: 20px;
+      .p-inputtext {
+        width: 100%;
+      }
+    }
+    .CatDropdown {
+      width: 30%;
+      .p-dropdown-label {
+        display: flex;
+        justify-content: left;
+      }
+      .p-dropdown {
+        width: 100%;
+      }
+    }
+  }
+  .w-100 {
+    width: 100%;
+    .p-inputtext {
+      width: 100%;
+    }
+  }
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; // Ensure the background covers the entire viewport
+    z-index: -1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Ensure the image covers the entire area
+    }
+  }
+
+  &__content {
     display: flex;
     justify-content: flex-end; // Align content to the right
     align-items: center;
-    min-height: 100vh;
-    padding: 5rem;
-    position: relative;
-    overflow: hidden; // Ensure no overflow for the background
-  
-    .background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%; // Ensure the background covers the entire viewport
-      z-index: -1;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; // Ensure the image covers the entire area
-      }
-    }
-  
-    &__content {
-      display: flex;
-      justify-content: flex-end; // Align content to the right
-      align-items: center;
-      z-index: 1; // Ensure content is above background
+    z-index: 1; // Ensure content is above background
+    padding: 2rem;
+    width: 100%;
+    max-width: 100%; // Control max width of the content
+
+    .card {
+      background: #fff;
       padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 100%; // Control max width of the content
-  
-      .card {
-        background: #fff;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
+      margin-bottom: 1rem;
+
+      h1 {
         margin-bottom: 1rem;
-  
-        h1 {
+        font-size: 1.5rem;
+      }
+
+      .create-blog__form {
+        .form-group {
           margin-bottom: 1rem;
-          font-size: 1.5rem;
-        }
-  
-        .create-blog__form {
-          .form-group {
-            margin-bottom: 1rem;
-  
-            label {
-              display: block;
-              margin-bottom: 0.5rem;
-            }
-  
-            input,
-            textarea {
-              width: 100%;
-              padding: 0.5rem;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-            }
-  
-            textarea {
-              resize: vertical;
-            }
-          }
-  
-          .submit-button {
+
+          label {
             display: block;
+            margin-bottom: 0.5rem;
+          }
+
+          input,
+          textarea {
             width: 100%;
-            padding: 0.75rem;
-            background: #6c6e70;
-            color: #fff;
-            border: none;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
           }
-  
-          .submit-button:hover {
-            background: #1d6fc7;
+
+          textarea {
+            resize: vertical;
           }
+        }
+
+        .submit-button {
+          display: block;
+          width: 100%;
+          padding: 0.75rem;
+          background: #6c6e70;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 1rem;
+        }
+
+        .submit-button:hover {
+          background: #1d6fc7;
         }
       }
     }
   }
-  
+}

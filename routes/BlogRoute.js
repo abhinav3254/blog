@@ -13,16 +13,18 @@ router.get('/test',(req,res) => {
 // Route for creating a blog post
 router.post('/create', upload.single('imageUrl'), async (req, res) => {
     try {
-        const { title, content, tags, category } = req.body;
+        const { title, content, tags, category,description } = req.body;
 
         if (!title || !content || !category) {
             return res.status(400).json({ message: 'Title, content, and category are required fields for creating a blog post.' });
         }
 
         const imageUrl = req.file ? req.file.path : null;
-
+console.log(req.file,req.file.path)
+if (imageUrl) {
+    imageUrl = imageUrl.replace(/\\/g, '\\');
+  }
         const readTime = Math.ceil(content.length / 200);
-
         const newBlog = new Blog({
             title,
             author: req.user.userId, 
@@ -30,7 +32,8 @@ router.post('/create', upload.single('imageUrl'), async (req, res) => {
             tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
             category,
             imageUrl,
-            readTime
+            readTime,
+            description
         });
 
         const savedBlog = await newBlog.save();
@@ -316,6 +319,7 @@ router.put('/update/:id', upload.single('imageUrl'), async (req, res) => {
 
         // Update the blog post
         blog.title = title || blog.title;
+        blog.description = description || blog.description;
         blog.content = content || blog.content;
         blog.tags = tags ? tags.split(',').map(tag => tag.trim()) : blog.tags;
         blog.category = category || blog.category;

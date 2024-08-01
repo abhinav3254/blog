@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -12,7 +13,7 @@ const BookmarkRoute = require('./routes/BookmarkRoute');
 
 // jwt checker
 const authenticateToken = require('./middleware/JwtTokenCheck');
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // connect to db
 require('./db-config/db');
 
