@@ -104,8 +104,8 @@ router.post('/login', async (req, res) => {
         const expiresIn = '520h';
         const fullName = `${user.firstName} ${user.lastName}`;
         const token = jwt.sign({ userId: user._id, name: fullName, username: user.username, role: user.role }, jwtSecret, { expiresIn });
-
-        return res.status(200).json({ message: `Welcome back, ${fullName}!`, token });
+        const response =  {'token':token,'userId':user._id}
+        return res.status(200).json({ message: `Welcome back, ${fullName}!`,response });
 
     } catch (err) {
         return res.status(500).json({ message: 'An error occurred while processing your request. Please try again later.', error: err.message });

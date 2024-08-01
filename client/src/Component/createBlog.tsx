@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
-import '../Styles/createBlog.scss';
 import { Editor } from "primereact/editor";
+import { Toast } from "primereact/toast";
+import React, { useRef, useState } from 'react';
+import { createBlog } from "../Services/blog";
+import '../Styles/createBlog.scss';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [content, setcontent] = useState('');
   const [category, setCategory] = useState('');
-  const [text, setText] = useState('');
   const [imageLink, setImageLink] = useState('');
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>('');
 
+  const toast:any = useRef(null);
+
+  const showToast = (type:string,message:string) => {
+      toast.current.show({ severity: type, detail: message });
+  };
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const blogData = { title, description, category, imageLink, uploadedImage };
+    const blogData = { title, content, category, imageLink, uploadedImage };
     console.log(blogData);
+    createBlog(blogData).then((res:any) => {
+      console.log('res',res);
+      showToast('success',res.data.message)
+    })
+    .catch((err:any) => {
+      showToast('error',err.data.message)
+      console.log('err',err);
+    });
     // Handle blog data submission (e.g., send to an API)
   };
 
@@ -78,12 +92,13 @@ const CreateBlog = () => {
               )}
             </div>
             <div className="card">
-              <Editor value={text} onTextChange={(e:any) => setText(e.htmlValue)} style={{ height: '320px' }} />
+              <Editor value={content} onTextChange={(e:any) => setcontent(e.htmlValue)} style={{ height: '320px' }} />
             </div>      
             <button type="submit" className="submit-button">Submit</button>
           </form>
         </div>
       </div>
+      <Toast ref={toast} />
     </div>
   );
 };

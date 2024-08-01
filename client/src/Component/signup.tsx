@@ -1,8 +1,11 @@
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
-import React, { useState } from "react";
+import { Toast } from 'primereact/toast';
+import React, { useRef, useState } from "react";
 import * as AuthService from "../Services/authService";
 import "../Styles/signup.scss";
+
+        
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +13,11 @@ const Signup: React.FC = () => {
     email: "",
     password: "",
   });
+  const toast:any = useRef(null);
 
+  const showToast = (type:string,message:string) => {
+      toast.current.show({ severity: type, detail: message });
+  };
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -37,6 +44,7 @@ console.log(name)
       .then((res:any) => {
         console.log('res',res);
         localStorage.setItem('userID',res.data.userId)
+        showToast('success',res.data.message)
       })
       .catch((err) => {
         console.log('err',err);
@@ -57,7 +65,7 @@ console.log(name)
                 onChange={(e) => handleChange(e)}
               />
               <label htmlFor="username">Username</label>
-            </FloatLabel>{" "}
+            </FloatLabel>
           </div>
           <div className="card flex justify-content-center">
             {" "}
@@ -85,6 +93,7 @@ console.log(name)
           <button type="submit">Sign Up</button>
         </form>
       </div>
+      <Toast ref={toast} />
     </div>
   );
 };

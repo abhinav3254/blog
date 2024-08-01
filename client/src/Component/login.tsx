@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { Toast } from 'primereact/toast';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../appSlice';
@@ -9,7 +10,11 @@ const Login = () => {
     username: '',
     password: '',
   });
+  const toast:any = useRef(null);
 
+  const showToast = (type:string,message:string) => {
+      toast.current.show({ severity: type, detail: message });
+  };
   const dispatch = useDispatch();
 const navigate = useNavigate()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,11 +30,15 @@ const navigate = useNavigate()
     AuthService.login(formData)
     .then((res:any) => {
       console.log('res',res);
-      localStorage.setItem('token',res.data.token)
-      dispatch(login(res.data.token));
+      showToast('success',"login")
+      localStorage.setItem('token',res.data.response.token)
+      localStorage.setItem('userId',res.data.response.userId)
+      dispatch(login(res.data.response.token));
       navigate('/blog')
     })
     .catch((err) => {
+
+      showToast('error',err.response.data.message)
       console.log('err',err);
     });
   };
@@ -67,6 +76,7 @@ const navigate = useNavigate()
           </form>
         </div>
       </div>
+      <Toast ref={toast} />
     </div>
   );
 };

@@ -1,14 +1,65 @@
-import React from 'react';
-import '../Styles/blog.scss';
+import { useEffect, useState } from 'react';
 import { FaBookmark, FaHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { getBlogs } from '../Services/blog';
+import '../Styles/blog.scss';
 
 const Blog = () => {
-  const handleCardClick = () => {
-    window.location.href = '/myblog';
-  };
 
+
+  const navigate = useNavigate()
+
+  const handleCardClick = (id:any) => {
+    navigate('/myblog',{state:{id}})
+    // window.location.href = '/myblog';
+  };
+  const[blogs,setBlogs]=useState<any>()
+  // const toast:any = useRef(null);
+
+  // const showToast = (type:string,message:string) => {
+  //     toast.current.show({ severity: type, detail: message });
+  // };
+  useEffect(()=>{
+    getAllByAllBlogs()
+  },[])
+const getAllByAllBlogs=()=>{
+  getBlogs().then((res:any) => {
+    console.log(res)
+    setBlogs(res.data.blogs)
+    console.log(blogs)
+  })
+  .catch((err) => {
+    // showToast('error',err.data.message)
+    console.log('err',err);
+  });
+}
   return (
     <div className="blog">
+      {
+blogs&&blogs.map((blog:any)=>{
+  return(<div className="blog-card" onClick={()=>{handleCardClick(blog._id)}}>
+        <section className="blog-section">
+          <div className="blog-section__content">
+            <h2>{blog.title}</h2>
+            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+            <div className="blog-section__footer">
+              <button className="view-more">View More</button>
+              <button className="heart-button">
+                <FaHeart />
+              </button>
+              <button className="bookmark-button">
+                <FaBookmark />
+              </button>
+            </div>
+          </div>
+          <div className="blog-section__image">
+            <div className="background-image"></div>
+            <img src="https://www.brandignity.com/wp-content/uploads/2020/12/digital-marketing-photography.jpg" alt="Image 1" />
+          </div>
+        </section>
+      </div>)
+})
+      }
       <div className="blog-card" onClick={handleCardClick}>
         <section className="blog-section">
           <div className="blog-section__content">

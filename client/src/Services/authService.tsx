@@ -14,6 +14,3 @@ const baseUrl = 'http://localhost:8080/api/v1/auth';
 export const login = (formData: any) => {
     return apiClient.post('auth/login',  formData);
 };
-export const getBlogs = () => {
-    return apiClient.get('blog/all');
-};

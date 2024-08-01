@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import '../Styles/myblog.scss'; // Import your custom styles
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getBlogById } from '../Services/blog';
+import '../Styles/myblog.scss'; // Import your custom styles
 
 const MyBlog = () => {
   const [visible, setVisible] = useState(false);
@@ -13,7 +15,22 @@ const MyBlog = () => {
       <Button label="DELETE" icon="pi pi-trash" onClick={() => setVisible(false)} />
     </div>
   );
+  const location = useLocation()
+const getBlog=()=>{
+  const { id } = location.state || {}
+  if(id){
+getBlogById(id).then((res:any) => {
+  console.log(res)
+})
+.catch((err) => {
+  console.log('err',err);
+});
+  }
+}
+useEffect(()=>{
+  getBlog()
 
+},[])
   const dialogContent = [
     {
       avatar: "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png",

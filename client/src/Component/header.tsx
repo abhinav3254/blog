@@ -3,7 +3,7 @@ import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { Ref, useRef } from "react";
+import { Ref, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { filter, login, logout } from "../appSlice";
@@ -13,11 +13,20 @@ import { RootState } from "../store";
 import "../Styles/header.scss";
 
 const Header = () => {
-  const loggedIn = useSelector((state: RootState) => state.App.loggedIn);
+  const loggedIn =  useSelector((state: RootState) => state.App.loggedIn);
+  // localStorage.getItem('userId')!=undefined
+ 
   const searchValue = useSelector((state: RootState) => state.App.searchValue);
   const dispatch = useDispatch();
   const profileBar: Ref<any> = useRef(null);
   const navigate = useNavigate()
+  useEffect(()=>{
+console.log(loggedIn,"login")
+
+if(localStorage.getItem('userId')!=undefined){
+  dispatch(login({usedId:localStorage.getItem('userId')}))
+}
+  },[loggedIn])
   return (
     <div className="header">
       <div className="name">
@@ -30,7 +39,7 @@ const Header = () => {
           <InputText v-model="va" placeholder="Search" onChange={(e)=>dispatch(filter(e.target.value))} />
         </IconField>
       </div>
-      {loggedIn ?<>
+      {loggedIn ? <>
       <div className="profileSec">
          <Button label="BLOGS"  onClick={()=>navigate('/blog')} />
          <Button label="CREATE +"  onClick={()=>navigate('/create')} />
@@ -40,7 +49,7 @@ const Header = () => {
       </div>
       
       <OverlayPanel ref={profileBar} className="profileOverlay">
-        <div className="nav"><Link to={"/profile"}>Profile</Link></div>
+        <div className="nav" onClick={()=>navigate('/profile')}>Profile</div>
         <div className="nav" onClick={()=>navigate('/myblog')}>My Posts</div>
         <div className="nav" onClick={()=>navigate('/myblog')}>Bookmarks</div>
         <div className="nav">Settings</div>

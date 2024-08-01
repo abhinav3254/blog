@@ -33,7 +33,7 @@
     padding: 0 !important;
     .nav{
       padding: 10px 20px;
-      border-bottom:1px solid rgb(24, 23, 23);
+      border-bottom:1px solid rgb(206, 203, 203);
     }
 }
 .header{
@@ -41,10 +41,13 @@
     padding: 10px 50px;
   }
 }
-
-.p-button{
-  padding: 5px 10px !important;
+.header{
+  .p-button{
+    padding: 5px 10px !important;
+  }
 }
+
+
 a{
   text-decoration: none;
   color: none !important; 

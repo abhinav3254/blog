@@ -33,7 +33,8 @@ router.get('/profile', async (req, res) => {
                 gender: profile.gender,
                 dateOfBirth: profile.dateOfBirth,
                 city: profile.city,
-                country: profile.country
+                country: profile.country,
+                bio: profile.bio
             };
 
             return res.status(200).json(refinedProfile);
@@ -55,7 +56,7 @@ router.put('/profile/update', async (req, res) => {
             return res.status(401).json({ message: 'Unauthorized access. Please log in to update your profile.' });
         }
 
-        const { firstName, lastName, email, phoneNumber, profilePicture, gender, dateOfBirth, city, country } = req.body;
+        const { firstName, lastName, email, phoneNumber, profilePicture, gender, dateOfBirth, city, country ,bio} = req.body;
 
         // Find the user by ID
         const user = await users.findById(userId);
@@ -80,6 +81,7 @@ router.put('/profile/update', async (req, res) => {
         if (dateOfBirth) user.dateOfBirth = dateOfBirth;
         if (city) user.city = city;
         if (country) user.country = country;
+        if (bio) user.bio = bio;
 
         // Save the updated user
         const updatedUser = await user.save();
