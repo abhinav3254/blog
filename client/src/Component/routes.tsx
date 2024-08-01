@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import { Navigate } from "react-router-dom";
 const HomeElement = lazy(() => import('./home'));
 const ProfileElement = lazy(() => import('./profile'));
 const DashboardElement = lazy(() => import('./dashboard'));
@@ -9,15 +10,29 @@ const CreateBlogElement = lazy(() => import('./createBlog'));
 const MyBlogElement = lazy(() => import('./myblog'));
 
 
-const routes = [
+export const publicRoutes = [
+  { path: '*', element: <Navigate to="/" /> },
+  { path: '/login', element: <LoginElement /> },
     { path: '/home' || '', element: <HomeElement /> },
-    { path: '/profile', element: <ProfileElement /> },
+    // { path: '/profile', element: <ProfileElement /> },
     { path: '/', element: <DashboardElement /> },
     { path: '/signup', element: <SignupElement /> },
-    { path: '/login', element: <LoginElement /> },
-    { path: '/blog', element: <BlogElement /> },
-    { path: '/create', element: <CreateBlogElement /> },
-    { path: '/myblog', element: <MyBlogElement /> },
+    // { path: '/blog', element: <BlogElement /> },
+    // { path: '/create', element: <CreateBlogElement /> },
+    // { path: '/myblog', element: <MyBlogElement /> },
 
   ]
-  export default routes
+  export const privateRoutes = [
+    { path: '*', element: <Navigate to="/" /> },
+    // { path: '/login', element: <LoginElement /> },
+      // { path: '/home' || '', element: <HomeElement /> },
+      { path: '/profile', element: <ProfileElement /> },
+      // { path: '/', element: <DashboardElement /> },
+      // { path: '/signup', element: <SignupElement /> },
+      { path: '/blog', element: <BlogElement /> },
+      { path: '/create', element: <CreateBlogElement /> },
+      { path: '/myblog', element: <MyBlogElement /> },
+  
+    ]
+  
+  // export default routes

@@ -5,7 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Ref, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { filter, login, logout } from "../appSlice";
 import logo from '../assets/logo.svg';
 import userDp from "../assets/userDp.png";
@@ -15,11 +15,12 @@ import "../Styles/header.scss";
 const Header = () => {
   const loggedIn =  useSelector((state: RootState) => state.App.loggedIn);
   // localStorage.getItem('userId')!=undefined
- 
+  const userId =  useSelector((state: RootState) => state.App.userId);
   const searchValue = useSelector((state: RootState) => state.App.searchValue);
   const dispatch = useDispatch();
   const profileBar: Ref<any> = useRef(null);
   const navigate = useNavigate()
+  const location = useLocation()
   useEffect(()=>{
 console.log(loggedIn,"login")
 
@@ -50,14 +51,14 @@ if(localStorage.getItem('userId')!=undefined){
       
       <OverlayPanel ref={profileBar} className="profileOverlay">
         <div className="nav" onClick={()=>navigate('/profile')}>Profile</div>
-        <div className="nav" onClick={()=>navigate('/myblog')}>My Posts</div>
+        <div className="nav" onClick={()=>navigate('/blog',{state:{userId}})}>My Posts</div>
         <div className="nav" onClick={()=>navigate('/myblog')}>Bookmarks</div>
         <div className="nav">Settings</div>
         <div className="nav"  onClick={(e)=>dispatch(logout())}>Sign Out</div>
       </OverlayPanel></>:
       <>
       <div className="profileSec">
-       <Button label="LOG IN" onClick={()=>navigate('/login')}/>
+      {location.pathname!='/login' &&<Button label="LOG IN" onClick={()=>navigate('/login')}/>}
        <Button label="GET STARTED" onClick={()=>navigate('/signup')}/>
        </div>
       </>

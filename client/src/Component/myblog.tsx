@@ -8,6 +8,7 @@ import '../Styles/myblog.scss'; // Import your custom styles
 
 const MyBlog = () => {
   const [visible, setVisible] = useState(false);
+  const [currentBlog, setCurrentBlog] = useState<any>();
 
   const footerContent = (
     <div className="dialog-footer">
@@ -20,7 +21,8 @@ const getBlog=()=>{
   const { id } = location.state || {}
   if(id){
 getBlogById(id).then((res:any) => {
-  console.log(res)
+  setCurrentBlog(res.data)
+  console.log(currentBlog,res)
 })
 .catch((err) => {
   console.log('err',err);
@@ -49,8 +51,39 @@ useEffect(()=>{
     }
   ];
 
-  return (
-    <div className="my-blog">
+  return (<>
+    {currentBlog?<> <div className="my-blog">
+      <div className="my-blog__image">
+      <img src={"http://localhost:8080/"+currentBlog.imageUrl} alt='Image'/>
+      </div>
+      <div className="my-blog__content">
+        <h1 className="my-blog__title">{currentBlog?.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: currentBlog?.content }} /> 
+        
+        <div className="card flex justify-content-center">
+          <Button label="Comments" icon="pi pi-external-link" onClick={() => setVisible(true)} />
+          <Dialog visible={visible} modal style={{ width: '50rem' }} onHide={() => setVisible(false)}>
+            <div className="dialog-content">
+              {dialogContent.map((content, index) => (
+                <div className="card-content" key={index}>
+                  <div className="inline-flex align-items-center justify-content-center gap-2">
+                    <Avatar image={content.avatar} shape="circle" />
+                    <span className="font-bold">{content.name}</span>
+                  </div>
+                  <p className="m-0">
+                    {content.text}
+                  </p>
+                  <div className="dialog-footer">
+                     {footerContent}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Dialog>
+        </div>
+      </div>
+    </div></>
+      :<><div className="my-blog">
       <div className="my-blog__image">
         <img src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/grow-your-business/designed-to-sell/designed-to-sell-2-1500w.webp" alt="Blog Image" />
       </div>
@@ -97,7 +130,8 @@ useEffect(()=>{
           </Dialog>
         </div>
       </div>
-    </div>
+    </div></>}
+    </>
   );
 };
 

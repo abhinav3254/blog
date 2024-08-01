@@ -16,6 +16,6 @@ import apiClient from '../interceptor';
 export const getBlogs = (page:number) => {
     return apiClient.get('blog/all'+'?page='+page);
 };
-export const getBlogById = (id:any) => {
-    return apiClient.get('/blog/blog/'+id);
+export const getBlogById = (id:any,page:any|null=1) => {
+    return apiClient.get('/blog/blog/'+id+'?page='+page);
 };

@@ -1,11 +1,18 @@
 import { Suspense } from "react";
+import { useSelector } from "react-redux";
 import { useRoutes } from 'react-router-dom';
-import routes from './routes';
+import { RootState } from "../store";
+import { privateRoutes, publicRoutes } from './routes';
 
-const layout = () => {
+const Layout = () => {
+  const  loggedIn =  useSelector((state: RootState) => state.App.loggedIn);
+  console.log(loggedIn)
+  let routes = loggedIn ? [...privateRoutes,...publicRoutes]:publicRoutes
+  console.log(routes)
     const AppRoutes = () => {
-        return useRoutes(routes);;
+        return useRoutes(routes);
       };
+
   return (
     <div className="layout">
     <Suspense fallback={<div>Loading...</div>}>
@@ -15,4 +22,4 @@ const layout = () => {
   )
 }
 
-export default layout
+export default Layout

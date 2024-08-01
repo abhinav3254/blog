@@ -1,8 +1,9 @@
-import { Button } from 'primereact/button';
+
+import { Paginator } from 'primereact/paginator';
 import { useEffect, useState } from 'react';
 import { FaBookmark, FaHeart } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { getBlogs } from '../Services/blog';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getBlogById, getBlogs } from '../Services/blog';
 import '../Styles/blog.scss';
 
 const Blog = () => {
@@ -11,23 +12,50 @@ const Blog = () => {
   const navigate = useNavigate()
 
   const handleCardClick = (id:any) => {
-    navigate('/myblog',{state:{id}})
-    // window.location.href = '/myblog';
+    if(id){
+      navigate('/myblog',{state:{id}})
+    }
+   
   };
   const[blogs,setBlogs]=useState<any>()
   const[currentPage,setcurrentPage]=useState<any>(1)
-  // const toast:any = useRef(null);
+  const[totalPages,setTotalPages]=useState<any>(0)
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(2);
 
-  // const showToast = (type:string,message:string) => {
-  //     toast.current.show({ severity: type, detail: message });
-  // };
+  const onPageChange = (event:any) => {
+      setFirst(event.first);
+      setRows(event.rows);
+  };
+
+  const location = useLocation()
   useEffect(()=>{
-    getAllByAllBlogs()
+    const { id } = location.state || {}
+    if(id){
+      getAllByIdBlogs(id)
+    }else{
+      getAllByAllBlogs()
+    }
+    
   },[])
+  
+  const getAllByIdBlogs=(id:any)=>{
+    getBlogById(id,currentPage).then((res:any) => {
+      console.log(res)
+      setBlogs(res.data.blogs)
+      setTotalPages(res.data.totalPages)
+      console.log(blogs)
+    })
+    .catch((err) => {
+      // showToast('error',err.data.message)
+      console.log('err',err);
+    });
+  }
 const getAllByAllBlogs=()=>{
   getBlogs(currentPage).then((res:any) => {
     console.log(res)
     setBlogs(res.data.blogs)
+    setTotalPages(res.data.totalPages)
     console.log(blogs)
   })
   .catch((err) => {
@@ -37,7 +65,7 @@ const getAllByAllBlogs=()=>{
 }
   return (
     <div className="blog">
-      <Button onClick={()=>{setcurrentPage(currentPage+1);getAllByAllBlogs()}}>Next page</Button>
+   
       {
 blogs&&blogs.map((blog:any)=>{
   return(<div className="blog-card" onClick={()=>{handleCardClick(blog._id)}}>
@@ -64,7 +92,7 @@ blogs&&blogs.map((blog:any)=>{
       </div>)
 })
       }
-      <div className="blog-card" onClick={handleCardClick}>
+      <div className="blog-card" >
         <section className="blog-section">
           <div className="blog-section__content">
             <h2>Heading 1</h2>
@@ -88,7 +116,7 @@ blogs&&blogs.map((blog:any)=>{
         </section>
       </div>
 
-      <div className="blog-card" onClick={handleCardClick}>
+      <div className="blog-card" >
         <section className="blog-section blog-section--reverse">
           <div className="blog-section__content">
             <h2>Heading 2</h2>
@@ -110,7 +138,7 @@ blogs&&blogs.map((blog:any)=>{
         </section>
       </div>
 
-      <div className="blog-card" onClick={handleCardClick}>
+      <div className="blog-card" >
         <section className="blog-section">
           <div className="blog-section__content">
             <h2>Heading 3</h2>
@@ -132,7 +160,7 @@ blogs&&blogs.map((blog:any)=>{
         </section>
       </div>
 
-      <div className="blog-card" onClick={handleCardClick}>
+      <div className="blog-card" >
         <section className="blog-section blog-section--reverse">
           <div className="blog-section__content">
             <h2>Heading 4</h2>
@@ -153,7 +181,16 @@ blogs&&blogs.map((blog:any)=>{
           </div>
         </section>
       </div>
-
+      <div className="card">
+            <Paginator first={first} rows={rows} totalRecords={totalPages}
+            //  rowsPerPageOptions={[10, 20, 30]}
+              onPageChange={onPageChange} />
+        </div>
+      {/* <div  className='btn-container'>
+      <Button onClick={()=>{setcurrentPage(currentPage-1);getAllByAllBlogs()}} disabled={currentPage==1}>previous page</Button>
+      <div className='page-Num'>{currentPage}</div>
+      <Button onClick={()=>{setcurrentPage(currentPage+1);getAllByAllBlogs()}} disabled={currentPage>=totalPages}>Next page</Button>
+      </div> */}
     </div>
   );
 };
