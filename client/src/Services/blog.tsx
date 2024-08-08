@@ -19,3 +19,17 @@ export const getBlogs = (page:number) => {
 export const getBlogById = (id:any,page:any|null=1) => {
     return apiClient.get('/blog/blog/'+id+'?page='+page);
 };
+
+export const likeBlog = (id:any) => {
+  return apiClient.put('blog/like/'+id);
+};
+
+export const bookmarkBlog = (id:any) => {
+  return apiClient.post('bookmark/save/'+id);
+};
+export const getBookmarks = () => {
+  return apiClient.get('/bookmark/my-bookmarks');
+};
+export const removeBookmark = (id:any) => {
+  return apiClient.delete('/bookmark/remove/'+id);
+};

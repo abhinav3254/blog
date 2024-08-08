@@ -51,8 +51,8 @@ if(localStorage.getItem('userId')!=undefined){
       
       <OverlayPanel ref={profileBar} className="profileOverlay">
         <div className="nav" onClick={()=>navigate('/profile')}>Profile</div>
-        <div className="nav" onClick={()=>navigate('/blog',{state:{userId}})}>My Posts</div>
-        <div className="nav" onClick={()=>navigate('/myblog')}>Bookmarks</div>
+        <div className="nav" onClick={()=>navigate('/my-posts')}>My Posts</div>
+        <div className="nav" onClick={()=>navigate('/bookmark')}>Bookmarks</div>
         <div className="nav">Settings</div>
         <div className="nav"  onClick={(e)=>dispatch(logout())}>Sign Out</div>
       </OverlayPanel></>:

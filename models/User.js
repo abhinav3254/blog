@@ -62,6 +62,12 @@ const UserSchema = new Schema({
     country: {
         type: String
     },
+    likedPost:{
+        type:[String]
+    },
+    bookmarked:{
+        type:[String]
+    },
     bio: {
         type: String
     }

@@ -6,9 +6,7 @@ import { privateRoutes, publicRoutes } from './routes';
 
 const Layout = () => {
   const  loggedIn =  useSelector((state: RootState) => state.App.loggedIn);
-  console.log(loggedIn)
   let routes = loggedIn ? [...privateRoutes,...publicRoutes]:publicRoutes
-  console.log(routes)
     const AppRoutes = () => {
         return useRoutes(routes);
       };
@@ -18,6 +16,7 @@ const Layout = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <AppRoutes />
      </Suspense>
+     
     </div>
   )
 }

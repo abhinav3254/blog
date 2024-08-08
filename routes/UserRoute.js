@@ -34,7 +34,7 @@ router.get('/profile', async (req, res) => {
                 dateOfBirth: profile.dateOfBirth,
                 city: profile.city,
                 country: profile.country,
-                bio: profile.bio
+                bio: profile.bio,
             };
 
             return res.status(200).json(refinedProfile);

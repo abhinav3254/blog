@@ -47,6 +47,14 @@ const BlogSchema = new Schema({
     readTime: {
         type:Number
     },
+    isLiked:{
+        type:Boolean,
+        default: false
+    },
+    isBookmarked:{
+        type:Boolean,
+        default: false
+    },
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'comments'

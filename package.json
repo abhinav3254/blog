@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "concurrently \"npm run client\" \"nodemon index.js\"",
+    "client": "npm start --prefix client",
+    "backend": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "abhinav3254",
@@ -18,5 +20,8 @@
     "mongoose": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

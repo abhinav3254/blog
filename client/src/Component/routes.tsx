@@ -8,6 +8,8 @@ const LoginElement = lazy(() => import('./login'));
 const BlogElement = lazy(() => import('./blog'));
 const CreateBlogElement = lazy(() => import('./createBlog'));
 const MyBlogElement = lazy(() => import('./myblog'));
+const BookmarkElement = lazy(() => import('./bookmarks'));
+const MyPostElement = lazy(() => import('./myPost'));
 
 
 export const publicRoutes = [
@@ -32,7 +34,8 @@ export const publicRoutes = [
       { path: '/blog', element: <BlogElement /> },
       { path: '/create', element: <CreateBlogElement /> },
       { path: '/myblog', element: <MyBlogElement /> },
-  
+      { path: '/bookmark', element: <BookmarkElement /> },
+      { path: '/my-posts', element: <MyPostElement/>},
     ]
   
   // export default routes

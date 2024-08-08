@@ -1,6 +1,6 @@
 import React from 'react';
-import '../Styles/dashboard.scss'; // Ensure this path is correct for your project
 import { Link, useNavigate } from 'react-router-dom';
+import '../Styles/dashboard.scss'; // Ensure this path is correct for your project
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate()
@@ -75,8 +75,8 @@ const Dashboard: React.FC = () => {
           <Link to="/myblog" className="card-link">
           <img decoding="async" src="https://colorlib.com/wp/wp-content/uploads/sites/2/7_food-blog-designs.jpg" alt="Card Image" />
           <div className="card-content">
-            <h2>Card Title 1</h2>
-            <p>This is a description for card 1.</p>
+            <h2>Boost Your Productivity Today</h2>
+            <p>emely painful. Nor again is there anyone who loves or pu.</p>
           </div>
           </Link>
         </div>
@@ -84,8 +84,8 @@ const Dashboard: React.FC = () => {
           <Link to="/myblog" className="card-link">
           <img decoding="async" src="https://marketplace.canva.com/EAE6WTyrSQ0/2/0/1600w/canva-light-beige-sleek-and-simple-blogger-personal-website--7Q4-7tyJj4.jpg" alt="Card Image" />
           <div className="card-content">
-            <h2>Card Title 2</h2>
-            <p>This is a description for card 2.</p>
+            <h2>Mindfulness Matters</h2>
+            <p>emely painful. Nor again is there anyone who loves or pu.</p>
           </div>
           </Link>
         </div>
@@ -93,8 +93,8 @@ const Dashboard: React.FC = () => {
           <Link to="/myblog" className="card-link">
           <img decoding="async" src="https://images-wixmp-530a50041672c69d335ba4cf.wixmp.com/templates/image/cffd601d8f00029e894a9dfaf14824e9fb8717b6bd9bcdc617fdbc6a419454a21628613679481.jpg" alt="Card Image" />
           <div className="card-content">
-            <h2>Card Title 3</h2>
-            <p>This is a description for card 3.</p>
+            <h2>Eco-Friendly Living</h2>
+            <p>rough weakness of will, which is the same as saying through shrinking from toil a</p>
           </div>
           </Link>
         </div>
@@ -102,8 +102,8 @@ const Dashboard: React.FC = () => {
           <Link to="/myblog" className="card-link">
           <img decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Eastcampusfire_glog_crop.png/220px-Eastcampusfire_glog_crop.png" alt="Card Image" />
           <div className="card-content">
-            <h2>Card Title 4</h2>
-            <p>This is a description for card 4.</p>
+            <h2>Travel on a Budget</h2>
+            <p>us id quod maxime placeat facere possimus,</p>
           </div>
           </Link>
         </div>
