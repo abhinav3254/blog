@@ -7,6 +7,7 @@ import Layout from './Component/layout';
 import { store } from './store';
 
 function App() {
+  
   return (
     <div className="App">
        <Provider store={store}>

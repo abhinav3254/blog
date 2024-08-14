@@ -48,14 +48,19 @@ border-radius: 10px;    margin: 2rem 0 1rem 0;
   }
 }
 .account-settings .user-profile .user-avatar {
-  margin: 0 0 1rem 0;
+  .p-avatar.p-avatar-circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+  margin: 1rem 0 1rem 0;
 }
 .account-settings .user-profile .user-avatar img {
-  width: 90px;
-  height: 90px;
-  -webkit-border-radius: 100px;
-  -moz-border-radius: 100px;
-  border-radius: 100px;
+  width: 100px;
+  height: 130px;
+//   -webkit-border-radius: 100px;
+//   -moz-border-radius: 100px;
+//   border-radius: 100px;
 }
 .account-settings .user-profile h5.user-name {
   margin: 0 0 0.5rem 0;

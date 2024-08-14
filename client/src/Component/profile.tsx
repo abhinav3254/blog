@@ -1,13 +1,14 @@
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
-import { FileUpload } from "primereact/fileupload";
+import { FileUpload } from 'primereact/fileupload';
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
 
+import { Avatar } from "primereact/avatar";
 import * as userService from "../Services/user";
 import "../Styles/profile.scss";
 let initialUserData = {
@@ -31,19 +32,14 @@ const Profile = () => {
   const showToast = (type:string,message:string) => {
       toast.current.show({ severity: type, detail: message });
   };
-  const onUpload = () => {
-    toast.current.show({
-      severity: "Success",
-      summary: "Success",
-      detail: "Profile picture Uploaded !",
-    });
+  const onUpload = (event:any) => {
+    const file = event.files?.[0] || null;
+    setuserData((prev:any)=>({...prev,['profilePicture']: file}))
   };
   useEffect(()=>{
     getUser()
-    console.log(userData,"jn")
   },[])
   const getUser=()=>{
-    let userId = localStorage.getItem('userId')
     userService.getProfile().then((res:any)=>{
       setuserData(res.data)
       if(res.data.dateOfBirth!=''){
@@ -55,17 +51,18 @@ const Profile = () => {
   }
   const handleOnchange=(e:any)=>{
 const {name,value,type}  = e.target
-console.log(name,value,type,e)
   setuserData((prev:any)=>({...prev,[name]:value}))
   }
   const handleSubmit=()=>{
-    console.log(userData)
-    userService.updatProfile(userData).then((res:any)=>{
+    const formData:any = new FormData();
+    Object.entries(userData).forEach(([key, value]) => {
+      formData.append(key, value);
+  });
+    userService.updatProfile(formData).then((res:any)=>{
       showToast('success',"Updated Successfully!")
     }).catch((err:any)=>{
       showToast('error',"Error!")
     })
-console.log(userData)
   }
   return (
     <div className="body">
@@ -77,20 +74,17 @@ console.log(userData)
                 <div className="account-settings">
                   <div className="user-profile">
                     <div className="user-avatar">
-                      <img
-                        src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                        alt="Profile picture"
-                      />
+                      <Avatar shape="circle" image={"http://localhost:8080/"+userData.profilePicture} imageFallback="https://bootdey.com/img/Content/avatar/avatar7.png">
+                      </Avatar>
                     </div>
                     <div className="card flex justify-content-center">
-                      <Toast ref={toast}></Toast>
                       <FileUpload
                         mode="basic"
-                        name="demo[]"
-                        url="/api/upload"
+                        name="profilePicture"
+                        customUpload 
                         accept="image/*"
                         maxFileSize={1000000}
-                        onUpload={onUpload}
+                        onSelect={onUpload}
                       />
                     </div>
                     <h5 className="user-name">{userData?.username}</h5>

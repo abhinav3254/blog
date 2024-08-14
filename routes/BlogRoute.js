@@ -1,9 +1,16 @@
 const express = require("express");
+const PDFDocument = require('pdfkit-table');
+const fs = require('fs');
 const router = express.Router();
 const upload = require("../middleware/uploadMiddleware");
 const Blog = require("../models/Blog");
 const Comment = require("../models/Comment");
 const users = require("../models/User");
+// const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+// const  Table  = require('pdfkit-table');
+// const PDFDocument = require('pdfkit');
+const table = require('pdfkit-table');
+
 
 router.get("/test", (req, res) => {
   return res.json({ message: "Hola from blog route" });
@@ -21,8 +28,7 @@ router.post("/create", upload.single("imageUrl"), async (req, res) => {
       });
     }
 
-    const imageUrl = req.file ? req.file.path : null;
-    console.log(req.file, req.file.path);
+    let imageUrl = req.file ? req.file.path : null;
     if (imageUrl) {
       imageUrl = imageUrl.replace(/\\/g, "\\");
     }
@@ -258,7 +264,7 @@ router.delete("/comment/:id", async (req, res) => {
 });
 
 // update comment
-router.put("/comment/:id", async (req, res) => {
+router.put("/comment/update/:id", async (req, res) => {
   try {
     const commentId = req.params.id;
     const { comment } = req.body;
@@ -303,16 +309,15 @@ router.get("/my-blogs", async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-
     // Assuming req.user.userId contains the ID of the logged-in user
     const userId = req.user.userId;
-
+    const user = await users.findById(userId);
     if (!userId) {
       return res.status(400).json({ message: "User ID is required." });
     }
 
     // Fetch blogs authored by the logged-in user, sorted by publishedDate and apply pagination
-    const blogs = await Blog.find({ author: userId })
+    const withOutIsLiked = await Blog.find({ author: userId })
       .populate({
         path: "author",
         select: "username profilePicture",
@@ -331,7 +336,17 @@ router.get("/my-blogs", async (req, res) => {
 
     // Count total number of blogs by the user for pagination
     const totalBlogs = await Blog.countDocuments({ author: userId });
-
+    const blogs = withOutIsLiked.map((item) => {
+      const blogObj = item.toObject();
+      // Check if the user has liked this blog
+      if (user.likedPost.includes(blogObj._id.toString())) {
+        blogObj.isLiked = true;
+      }
+      if (user.bookmarked.includes(blogObj._id.toString())) {
+        blogObj.isBookmarked = true;
+      }
+      return blogObj;
+    });
     // Return paginated and sorted blogs
     return res.status(200).json({
       totalBlogs,
@@ -352,7 +367,7 @@ router.get("/my-blogs", async (req, res) => {
 router.put("/update/:id", upload.single("imageUrl"), async (req, res) => {
   try {
     const blogId = req.params.id;
-    const { title, content, tags, category } = req.body;
+    const { title, content, tags, category ,description} = req.body;
     const imageUrl = req.file ? req.file.path : null;
 
     // Validate input
@@ -510,5 +525,6 @@ router.get("/blog/:id", async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;

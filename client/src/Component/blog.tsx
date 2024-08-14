@@ -6,13 +6,17 @@ import { FaBookmark, FaHeart } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import filledHeart from "../assets/filled_heart.png";
 import outLinedHeart from "../assets/outlined_heart.png";
+
+import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog /> component
+
 import {
   bookmarkBlog,
-  getBlogById,
+  deleteBlog,
+  getBlogMyBlogs,
   getBlogs,
   getBookmarks,
   likeBlog,
-  removeBookmark
+  removeBookmark,
 } from "../Services/blog";
 import "../Styles/blog.scss";
 
@@ -27,6 +31,10 @@ const Blog = (props: any) => {
   const [totalPages, setTotalPages] = useState<any>(0);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(2);
+  const [deleteDialog, setdeleteDialog] = useState({
+    visible: false,
+    id: null,
+  });
   const toast: any = useRef(null);
 
   const showToast = (type: string, message: string) => {
@@ -66,7 +74,7 @@ const Blog = (props: any) => {
   }, [currentPage]);
 
   const getAllByIdBlogs = (id: any) => {
-    getBlogById(id, currentPage)
+    getBlogMyBlogs(currentPage)
       .then((res: any) => {
         setBlogs(res.data.blogs);
         console.log(blogs);
@@ -75,6 +83,15 @@ const Blog = (props: any) => {
       .catch((err) => {
         console.log("err", err);
       });
+    // getBlogById(id, currentPage)
+    //   .then((res: any) => {
+    //     setBlogs(res.data.blogs);
+    //     console.log(blogs);
+    //     setTotalPages(res.data.totalPages);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
   };
   const getAllByAllBlogs = () => {
     getBlogs(currentPage)
@@ -93,28 +110,24 @@ const Blog = (props: any) => {
     if (index !== -1) {
       const updatedBlogs = [...blogs];
       const blog = updatedBlogs[index];
-      console.log(blog)
+      console.log(blog);
       if (blog.isBookmarked) {
         blog.isBookmarked = false;
         removeBookmark(id)
-        .then((res: any) => {
-        })
-        .catch((err) => {
-          blog.isBookmarked = true;
-        });
-       
+          .then((res: any) => {})
+          .catch((err) => {
+            blog.isBookmarked = true;
+          });
       } else {
         blog.isBookmarked = true;
         bookmarkBlog(id)
-        .then((res: any) => {
-        })
-        .catch((err) => {
-          blog.isBookmarked = false;
-        });
+          .then((res: any) => {})
+          .catch((err) => {
+            blog.isBookmarked = false;
+          });
       }
       setBlogs(updatedBlogs);
     }
-
   };
   const likeABlog = (id: any) => {
     likeBlog(id)
@@ -137,6 +150,21 @@ const Blog = (props: any) => {
         console.log("err", err);
       });
   };
+  const handleDeleteBlog = () => {
+    deleteBlog(deleteDialog.id)
+      .then((res: any) => {
+        showToast("success", "Deleted Successfully!");
+        getData();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+    setdeleteDialog({ visible: false, id: null });
+  };
+
+  const editPost = (blog: any) => {
+    navigate("/create", { state: blog });
+  };
   return (
     <div className="blog">
       {blogs &&
@@ -144,9 +172,7 @@ const Blog = (props: any) => {
           return (
             <div
               className="blog-card"
-              // onClick={() => {
-              //   handleCardClick(blog._id);
-              // }}
+           
             >
               <section
                 className={
@@ -184,15 +210,40 @@ const Blog = (props: any) => {
                         View More
                       </button>
                     </div>
-                    <div>
-                        <Button
-                          icon={blog.isBookmarked ?"pi pi-bookmark-fill":"pi pi-bookmark"}
-                          onClick={() => handleBookmark(blog._id)}
-                          rounded
-                          text
-                          severity="info"
-                          aria-label="Bookmark"
-                        />
+                    <div className="align-items-center">
+                      {pageDetails == "mypost" && (
+                        <>
+                          <Button
+                            icon="pi pi-pen-to-square p-2"
+                            rounded
+                            text
+                            style={{ fontSize: "1.3rem" }}
+                            onClick={() => editPost(blog)}
+                          ></Button>
+                          <Button
+                            icon="pi pi-trash p-2 red"
+                            style={{ fontSize: "1.3rem" }}
+                            rounded
+                            text
+                            severity="danger"
+                            onClick={() =>
+                              setdeleteDialog({ visible: true, id: blog._id })
+                            }
+                          ></Button>
+                        </>
+                      )}
+                      <Button
+                        icon={
+                          blog.isBookmarked
+                            ? "pi pi-bookmark-fill"
+                            : "pi pi-bookmark"
+                        }
+                        onClick={() => handleBookmark(blog._id)}
+                        rounded
+                        text
+                        severity="info"
+                        aria-label="Bookmark"
+                      />
                     </div>
                   </div>
                 </div>
@@ -207,232 +258,7 @@ const Blog = (props: any) => {
             </div>
           );
         })}
-      <div className="blog-card">
-        <section className="blog-section">
-          <div className="blog-section__content">
-            <h2>Heading 1</h2>
-            <p>
-              {" "}
-              Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-              interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor
-              ut urna vehicula ultricies id in libero. Nam consectetur urna at
-              orci cursus, at venenatis sapien varius.
-            </p>
-            <p>
-              {" "}
-              Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-              interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor
-              ut urna vehicula ultricies id in libero. Nam consectetur urna at
-              orci cursus, at venenatis sapien varius.
-            </p>
-            <p>
-              {" "}
-              Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-              interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor
-              ut urna vehicula ultricies id in libero. Nam consectetur urna at
-              orci cursus, at venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://www.brandignity.com/wp-content/uploads/2020/12/digital-marketing-photography.jpg"
-              alt="Image 1"
-            />
-          </div>
-        </section>
-      </div>
-
-      <div className="blog-card">
-        <section className="blog-section blog-section--reverse">
-          <div className="blog-section__content">
-            <h2>Heading 2</h2>
-            <p>
-              Description for the second section. This text will be on the left
-              side with the image on the right.Morbi ac eros eu elit volutpat
-              dictum. Donec ac elit et nisi interdum pretium a nec dolor.
-              Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id
-              in libero. Nam consectetur urna at orci cursus, at venenatis
-              sapien varius.Morbi ac eros eu elit volutpat dictum.interdum
-              pretium a nec dolor.Nam consectetur urna at orci cursus, at
-              venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-landscape-Photography-25.jpg"
-              alt="Image 2"
-            />
-          </div>
-        </section>
-      </div>
-
-      <div className="blog-card">
-        <section className="blog-section">
-          <div className="blog-section__content">
-            <h2>Heading 3</h2>
-            <p>
-              Description for the third section. This text will be on the right
-              side with the image on the left.Morbi ac eros eu elit volutpat
-              dictum. Donec ac elit et nisi interdum pretium a nec dolor.
-              Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id
-              in libero. Nam consectetur urna at orci cursus, at venenatis
-              sapien varius.Morbi ac eros eu elit volutpat dictum. Donec ac elit
-              et nisi interdum pretium a nec dolor. Suspendisse potenti. Nulla
-              at dolor ut urna vehicula ultricies id in libero. Nam consectetur
-              urna at orci cursus, at venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-landscape-Photography-26.jpg"
-              alt="Image 3"
-            />
-          </div>
-        </section>
-      </div>
-
-      <div className="blog-card">
-        <section className="blog-section blog-section--reverse">
-          <div className="blog-section__content">
-            <h2>Heading 4</h2>
-            <p>
-              Description for the second section. This text will be on the left
-              side with the image on the right.Morbi ac eros eu elit volutpat
-              dictum. Donec ac elit et nisi interdum pretium a nec dolor.
-              Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id
-              in libero. Nam consectetur urna at orci cursus, at venenatis
-              sapien varius.Morbi ac eros eu elit volutpat dictum.interdum
-              pretium a nec dolor.Nam consectetur urna at orci cursus, at
-              venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://wallpapers.com/images/hd/lakeside-car-full-desktop-screen-hd-ffduevjvagzqhrhy.jpg"
-              alt="Image 2"
-            />
-          </div>
-        </section>
-      </div>
-      <div className="blog-card">
-        <section className="blog-section">
-          <div className="blog-section__content">
-            <h2>Heading 5</h2>
-            <p>
-              {" "}
-              Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-              interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor
-              ut urna vehicula ultricies id in libero. Nam consectetur urna at
-              orci cursus, at venenatis sapien varius.
-            </p>
-            <p>
-              {" "}
-              Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-              interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor
-              ut urna vehicula ultricies id in libero. Nam consectetur urna at
-              orci cursus, at venenatis sapien varius.
-            </p>
-            <p>
-              {" "}
-              Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-              interdum pretium a nec dolor. Suspendisse potenti. Nulla at dolor
-              ut urna vehicula ultricies id in libero. Nam consectetur urna at
-              orci cursus, at venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://www.brandignity.com/wp-content/uploads/2020/12/digital-marketing-photography.jpg"
-              alt="Image 1"
-            />
-          </div>
-        </section>
-      </div>
-
-      <div className="blog-card">
-        <section className="blog-section blog-section--reverse">
-          <div className="blog-section__content">
-            <h2>Heading 6</h2>
-            <p>
-              Description for the second section. This text will be on the left
-              side with the image on the right.Morbi ac eros eu elit volutpat
-              dictum. Donec ac elit et nisi interdum pretium a nec dolor.
-              Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id
-              in libero. Nam consectetur urna at orci cursus, at venenatis
-              sapien varius.Morbi ac eros eu elit volutpat dictum.interdum
-              pretium a nec dolor.Nam consectetur urna at orci cursus, at
-              venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-landscape-Photography-25.jpg"
-              alt="Image 2"
-            />
-          </div>
-        </section>
-      </div>
-
+   
       <div className="blog-card">
         <section className="blog-section">
           <div className="blog-section__content">
@@ -512,6 +338,14 @@ const Blog = (props: any) => {
         />
       </div>
       <Toast ref={toast} />
+      <ConfirmDialog
+        visible={deleteDialog.visible}
+        message="Are you sure you want to delete?"
+        header="Confirmation"
+        icon="pi pi-exclamation-triangle"
+        accept={handleDeleteBlog}
+        reject={() => setdeleteDialog({ visible: false, id: null })}
+      />
     </div>
   );
 };

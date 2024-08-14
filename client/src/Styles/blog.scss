@@ -128,9 +128,11 @@ display: flex;
         img {
           position: relative;
           z-index: 2;
-          width: 100%;
+          object-fit: contain;
+          width: auto;
           height: auto;
           border-radius: 8px;
+          max-height: 500px;
         }
       }
 
@@ -144,4 +146,7 @@ h3{
   display: flex;
     margin: 20px 40px 0;
     color: #53536c;
+}
+.red{
+  columns: red;
 }

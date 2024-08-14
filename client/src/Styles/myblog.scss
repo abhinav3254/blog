@@ -58,3 +58,84 @@
     margin: 3px;
     // padding: 2px 2px 2px 2px;
 }
+
+
+.comments-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment-content {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: start;
+  .p-component {
+    // &.p-button{
+    //   margin: 0px;
+    // }
+    // width: auto;
+ 
+}
+.cmntText{
+  margin: 0.5rem 0 0.5rem 3rem;
+}
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  .p-icon-field {
+    width: 100%;
+    min-width: 500px;
+  }
+}
+
+
+.comment-form input {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+
+}
+.comment-form{
+.p-component{
+  width: 100%;
+}
+}
+
+.comment-form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #0056b3;
+}
