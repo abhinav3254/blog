@@ -7,7 +7,6 @@ const Dashboard: React.FC = () => {
   
   return (
     <div id="dashboard" className="dashboard">
-      {/* Hero Block */}
       <div id="hero-block" className="hero-block">
         <div className="hero-background">
           <div className="hero-background__image hero-background__image--bottom">
@@ -50,9 +49,9 @@ const Dashboard: React.FC = () => {
       <div className="hero-block">
         <div className="hero-content">
           <div className="hero-content__text">
-            <h1>Another Section</h1>
+            <h1>Explore Our Latest Insights</h1>
             <p>
-              This is another section with similar styling to the hero block. You can add more content here.
+            Dive into our newest blog posts where we cover a variety of topics from productivity tips to travel hacks. Stay informed and inspired with our latest updates and expert advice
             </p>
           </div>
           <div className="hero-content__image">
@@ -69,7 +68,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Cards Section */}
-      <h1>Our Blog</h1>
+      {/* <h1>Our Blog</h1>
       <div className="cards-section">
         <div className="card">
           <Link to="/myblog" className="card-link">
@@ -107,7 +106,7 @@ const Dashboard: React.FC = () => {
           </div>
           </Link>
         </div>
-      </div>
+      </div> */}
 
       <div className="hero-block">
         <div className="hero-content">
@@ -127,9 +126,9 @@ const Dashboard: React.FC = () => {
             </picture>
           </div>
           <div className="hero-content__text">
-            <h1>Another Section</h1>
+            <h1>Inspiration for Every Day</h1>
             <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis ex at tortor vulputate, vel dictum orci malesuada. 
+           From practical advice to insightful stories, find the inspiration you need to make each day extraordinary. 
             </p>
           </div>
         </div>

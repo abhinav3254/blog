@@ -52,7 +52,6 @@ if(localStorage.getItem('userId')!=undefined){
         <div className="nav" onClick={()=>navigate('/profile')}>Profile</div>
         <div className="nav" onClick={()=>navigate('/my-posts')}>My Posts</div>
         <div className="nav" onClick={()=>navigate('/bookmark')}>Bookmarks</div>
-        <div className="nav">Settings</div>
         <div className="nav"  onClick={(e)=>dispatch(logout())}>Sign Out</div>
       </OverlayPanel></>:
       <>
