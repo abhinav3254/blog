@@ -24,7 +24,6 @@ const CreateBlog = () => {
 
   useEffect(()=>{
     if(location.state){
-      console.log(location.state)
       setEditBlog(location.state)
     }
     setTitle(editBlog?.title)
@@ -80,7 +79,6 @@ if(editBlog){
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
     setUploadedImage(file);
-console.log(file)
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {

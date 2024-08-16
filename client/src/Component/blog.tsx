@@ -2,13 +2,13 @@ import { Button } from "primereact/button";
 import { Paginator } from "primereact/paginator";
 import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
-import { FaBookmark, FaHeart } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import filledHeart from "../assets/filled_heart.png";
 import outLinedHeart from "../assets/outlined_heart.png";
 
 import { ConfirmDialog } from "primereact/confirmdialog"; // For <ConfirmDialog /> component
 
+import { useSelector } from "react-redux";
 import {
   bookmarkBlog,
   deleteBlog,
@@ -17,15 +17,16 @@ import {
   getBookmarks,
   likeBlog,
   removeBookmark,
+  searchBlogs,
 } from "../Services/blog";
 import "../Styles/blog.scss";
+import { RootState } from "../store";
 
 const Blog = (props: any) => {
   const { pageDetails } = props;
   const navigate = useNavigate();
   // const userId =  useSelector((state: RootState) => state.App.userId);
-  const userId = localStorage.getItem("userId") || "";
-
+  const searchValue = useSelector((state: RootState) => state.App.searchValue);
   const [blogs, setBlogs] = useState<any>();
   const [currentPage, setcurrentPage] = useState<any>(1);
   const [totalPages, setTotalPages] = useState<any>(0);
@@ -36,6 +37,31 @@ const Blog = (props: any) => {
     id: null,
   });
   const toast: any = useRef(null);
+  const userId = localStorage.getItem("userId") || "";
+
+  useEffect(() => {
+    getData();
+    const delayDebounceFn = setTimeout(() => {
+      if (searchValue !== "") {
+        search();
+      }else{
+        getData();
+      }
+    }, 500);
+    return () => clearTimeout(delayDebounceFn);
+  }, [currentPage,searchValue]);
+
+  const search = () => {
+    searchBlogs(currentPage, searchValue)
+      .then((res: any) => {
+        setBlogs(res.data.blogs);
+        setTotalPages(res.data.totalPages);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
 
   const showToast = (type: string, message: string) => {
     toast.current.show({ severity: type, detail: message });
@@ -55,7 +81,6 @@ const Blog = (props: any) => {
       getBookmarks()
         .then((res: any) => {
           let blogs = res.data.bookmarks[0].blog;
-          console.log(blogs);
           setBlogs(blogs);
           setTotalPages(res.data.totalPages);
         })
@@ -68,30 +93,17 @@ const Blog = (props: any) => {
       getAllByAllBlogs();
     }
   };
-  const location = useLocation();
-  useEffect(() => {
-    getData();
-  }, [currentPage]);
+
 
   const getAllByIdBlogs = (id: any) => {
     getBlogMyBlogs(currentPage)
       .then((res: any) => {
         setBlogs(res.data.blogs);
-        console.log(blogs);
         setTotalPages(res.data.totalPages);
       })
       .catch((err) => {
         console.log("err", err);
       });
-    // getBlogById(id, currentPage)
-    //   .then((res: any) => {
-    //     setBlogs(res.data.blogs);
-    //     console.log(blogs);
-    //     setTotalPages(res.data.totalPages);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //   });
   };
   const getAllByAllBlogs = () => {
     getBlogs(currentPage)
@@ -110,7 +122,6 @@ const Blog = (props: any) => {
     if (index !== -1) {
       const updatedBlogs = [...blogs];
       const blog = updatedBlogs[index];
-      console.log(blog);
       if (blog.isBookmarked) {
         blog.isBookmarked = false;
         removeBookmark(id)
@@ -165,15 +176,14 @@ const Blog = (props: any) => {
   const editPost = (blog: any) => {
     navigate("/create", { state: blog });
   };
+
+
   return (
     <div className="blog">
       {blogs &&
         blogs.map((blog: any, index: any) => {
           return (
-            <div
-              className="blog-card"
-           
-            >
+            <div className="blog-card">
               <section
                 className={
                   index % 2 !== 0
@@ -202,7 +212,7 @@ const Blog = (props: any) => {
                     </div>
                     <div>
                       <button
-                        className="view-more"
+                        className={pageDetails == "mypost" ? "view-more ml-8":"view-more"}
                         onClick={() => {
                           handleCardClick(blog._id);
                         }}
@@ -258,90 +268,24 @@ const Blog = (props: any) => {
             </div>
           );
         })}
-   
-      <div className="blog-card">
-        <section className="blog-section">
-          <div className="blog-section__content">
-            <h2>Heading 7</h2>
-            <p>
-              Description for the third section. This text will be on the right
-              side with the image on the left.Morbi ac eros eu elit volutpat
-              dictum. Donec ac elit et nisi interdum pretium a nec dolor.
-              Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id
-              in libero. Nam consectetur urna at orci cursus, at venenatis
-              sapien varius.Morbi ac eros eu elit volutpat dictum. Donec ac elit
-              et nisi interdum pretium a nec dolor. Suspendisse potenti. Nulla
-              at dolor ut urna vehicula ultricies id in libero. Nam consectetur
-              urna at orci cursus, at venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://cdn-ffcgi.nitrocdn.com/ZhDYBbXPoHrCHvLPGOdQmXKAjZXwoPng/assets/images/optimized/rev-bea8d4d/jamesmaherphotography.com/wp-content/uploads/2020/01/City-Urban-landscape-Photography-26.jpg"
-              alt="Image 3"
-            />
-          </div>
-        </section>
-      </div>
-
-      <div className="blog-card">
-        <section className="blog-section blog-section--reverse">
-          <div className="blog-section__content">
-            <h2>Heading 8</h2>
-            <p>
-              Description for the second section. This text will be on the left
-              side with the image on the right.Morbi ac eros eu elit volutpat
-              dictum. Donec ac elit et nisi interdum pretium a nec dolor.
-              Suspendisse potenti. Nulla at dolor ut urna vehicula ultricies id
-              in libero. Nam consectetur urna at orci cursus, at venenatis
-              sapien varius.Morbi ac eros eu elit volutpat dictum.interdum
-              pretium a nec dolor.Nam consectetur urna at orci cursus, at
-              venenatis sapien varius.
-            </p>
-            <div className="blog-section__footer">
-              <button className="view-more">View More</button>
-              <button className="heart-button">
-                <FaHeart />
-              </button>
-              <button className="bookmark-button">
-                <FaBookmark />
-              </button>
-            </div>
-          </div>
-          <div className="blog-section__image">
-            <div className="background-image"></div>
-            <img
-              src="https://wallpapers.com/images/hd/lakeside-car-full-desktop-screen-hd-ffduevjvagzqhrhy.jpg"
-              alt="Image 2"
-            />
-          </div>
-        </section>
-      </div>
-
       <div className="card">
-        <Paginator
+       {totalPages>0 ? <Paginator
           first={first}
           rows={rows}
           totalRecords={totalPages}
           //  rowsPerPageOptions={[10, 20, 30]}
           onPageChange={onPageChange}
-        />
+        />:
+        <div className="NoBlog">No Blog Found !!!</div>
+        }
       </div>
       <Toast ref={toast} />
       <ConfirmDialog
+      className="deleteDialog"
         visible={deleteDialog.visible}
         message="Are you sure you want to delete?"
         header="Confirmation"
+        closable={false}
         icon="pi pi-exclamation-triangle"
         accept={handleDeleteBlog}
         reject={() => setdeleteDialog({ visible: false, id: null })}

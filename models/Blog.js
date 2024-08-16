@@ -60,7 +60,13 @@ const BlogSchema = new Schema({
         ref: 'comments'
     }]
 }, { timestamps: true });
-
+BlogSchema.index({
+    title: 'text',
+    content: 'text',
+    description: 'text',
+    tags: 'text',
+    category: 'text'
+});
 const Blog = mongoose.model('blogs', BlogSchema);
 
 module.exports = Blog;

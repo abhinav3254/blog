@@ -22,7 +22,6 @@ const Header = () => {
   const navigate = useNavigate()
   const location = useLocation()
   useEffect(()=>{
-console.log(loggedIn,"login")
 
 if(localStorage.getItem('userId')!=undefined){
   dispatch(login({usedId:localStorage.getItem('userId')}))

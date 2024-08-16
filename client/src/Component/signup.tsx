@@ -24,14 +24,7 @@ const Signup: React.FC = () => {
     const { name, type, value } = e.target as
       | HTMLInputElement
       | HTMLSelectElement;
-console.log(name)
-    // Use type guard to handle checkbox inputs
-    // if (type === "checkbox") {
-    //   setFormData({
-    //     ...formData,
-    //     [name]: (e.target as HTMLInputElement).checked,
-    //   });
-    // } else {
+
       setFormData({
         ...formData,
         [name]: value,
@@ -42,7 +35,6 @@ console.log(name)
     e.preventDefault();
     AuthService.signup(formData)
       .then((res:any) => {
-        console.log('res',res);
         localStorage.setItem('userID',res.data.userId)
         showToast('success',res.data.message)
       })

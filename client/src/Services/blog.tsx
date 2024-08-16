@@ -23,6 +23,10 @@ export const updateBlog = (formData: any,id:any) => {
   )
   
 };
+
+export const searchBlogs = (page:number,value:string) => {
+  return apiClient.get('blog/search'+'?page='+page+'&q='+value);
+};
 export const getBlogs = (page:number) => {
     return apiClient.get('blog/all'+'?page='+page);
 };

@@ -39,7 +39,6 @@ const MyBlog = () => {
           setCurrentBlog(res.data);
           setTotalPages(res.data.comments.length / 5);
           setcurrentPageData(res.data.comments.slice(first, first + 5));
-          console.log(currentBlog, res);
         })
         .catch((err) => {
           console.log("err", err);
@@ -53,7 +52,6 @@ const MyBlog = () => {
   const handleDelete = (id: any) => {
     deleteComment(id)
       .then((res: any) => {
-        console.log(res);
         getBlog();
       })
       .catch((err) => {
@@ -67,7 +65,6 @@ const MyBlog = () => {
   };
   const Comment = ({ key, id, user, text }: any) => {
  const userId = localStorage.getItem("userId")
- console.log(userId,user._id)
     const menuLeft: any = useRef(null);
     const items=(id:any,text:any) =>  [
       {

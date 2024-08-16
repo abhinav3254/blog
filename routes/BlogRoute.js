@@ -1,16 +1,9 @@
 const express = require("express");
-const PDFDocument = require('pdfkit-table');
-const fs = require('fs');
 const router = express.Router();
 const upload = require("../middleware/uploadMiddleware");
 const Blog = require("../models/Blog");
 const Comment = require("../models/Comment");
 const users = require("../models/User");
-// const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
-// const  Table  = require('pdfkit-table');
-// const PDFDocument = require('pdfkit');
-const table = require('pdfkit-table');
-
 
 router.get("/test", (req, res) => {
   return res.json({ message: "Hola from blog route" });
@@ -156,9 +149,7 @@ router.put("/like/:id", async (req, res) => {
         user.likedPost.splice(index, 1);
       }
       blog.like -= 1;
-      return res
-        .status(200)
-        .json({ message: "You have unliked this blog." });
+      return res.status(200).json({ message: "You have unliked this blog." });
     }
   } catch (err) {
     return res.status(500).json({
@@ -367,7 +358,7 @@ router.get("/my-blogs", async (req, res) => {
 router.put("/update/:id", upload.single("imageUrl"), async (req, res) => {
   try {
     const blogId = req.params.id;
-    const { title, content, tags, category ,description} = req.body;
+    const { title, content, tags, category, description } = req.body;
     const imageUrl = req.file ? req.file.path : null;
 
     // Validate input
@@ -456,9 +447,16 @@ router.get("/search", async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-
-    const blogs = await Blog.find({
-      $text: { $search: query },
+    const userId = req.user.userId;
+    const user = await users.findById(userId);
+    const withOutIsLiked = await Blog.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { content: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+        { tags: { $regex: query, $options: 'i' } },
+        { category: { $regex: query, $options: 'i' } }
+      ]
     })
       .populate({
         path: "author",
@@ -475,7 +473,17 @@ router.get("/search", async (req, res) => {
       .sort({ publishedDate: -1 })
       .skip(skip)
       .limit(limit);
-
+      const blogs = withOutIsLiked.map((item) => {
+        const blogObj = item.toObject();
+        // Check if the user has liked this blog
+        if (user.likedPost.includes(blogObj._id.toString())) {
+          blogObj.isLiked = true;
+        }
+        if (user.bookmarked.includes(blogObj._id.toString())) {
+          blogObj.isBookmarked = true;
+        }
+        return blogObj;
+      });
     const totalBlogs = await Blog.countDocuments({
       $text: { $search: query },
     });
@@ -525,6 +533,7 @@ router.get("/blog/:id", async (req, res) => {
     });
   }
 });
+
 
 
 module.exports = router;
