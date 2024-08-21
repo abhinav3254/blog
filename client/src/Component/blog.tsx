@@ -1,5 +1,6 @@
 import { Button } from "primereact/button";
 import { Paginator } from "primereact/paginator";
+import { Skeleton } from 'primereact/skeleton';
 import { Toast } from "primereact/toast";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +33,7 @@ const Blog = (props: any) => {
   const [totalPages, setTotalPages] = useState<any>(0);
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(2);
+  const [loading, setLoading] = useState(true);
   const [deleteDialog, setdeleteDialog] = useState({
     visible: false,
     id: null,
@@ -56,9 +58,11 @@ const Blog = (props: any) => {
       .then((res: any) => {
         setBlogs(res.data.blogs);
         setTotalPages(res.data.totalPages);
+        setLoading(false)
       })
       .catch((err) => {
         console.log("err", err);
+        setLoading(false)
       });
   };
 
@@ -83,6 +87,7 @@ const Blog = (props: any) => {
           let blogs = res.data.bookmarks[0].blog;
           setBlogs(blogs);
           setTotalPages(res.data.totalPages);
+          setLoading(false)
         })
         .catch((err) => {
           console.log("err", err);
@@ -100,9 +105,11 @@ const Blog = (props: any) => {
       .then((res: any) => {
         setBlogs(res.data.blogs);
         setTotalPages(res.data.totalPages);
+        setLoading(false)
       })
       .catch((err) => {
         console.log("err", err);
+        setLoading(false)
       });
   };
   const getAllByAllBlogs = () => {
@@ -111,10 +118,12 @@ const Blog = (props: any) => {
         console.log(res);
         setBlogs(res.data.blogs);
         setTotalPages(res.data.totalPages);
+        setLoading(false)
       })
       .catch((err) => {
         // showToast('error',err.data.message)
         console.log("err", err);
+        setLoading(false)
       });
   };
   const handleBookmark = (id: any) => {
@@ -176,98 +185,104 @@ const Blog = (props: any) => {
   const editPost = (blog: any) => {
     navigate("/create", { state: blog });
   };
-
+useEffect(()=>{
+console.log(loading,"loading")
+},[loading])
 
   return (
     <div className="blog">
       {blogs &&
         blogs.map((blog: any, index: any) => {
-          return (
+          return (<>{
             <div className="blog-card">
-              <section
-                className={
-                  index % 2 !== 0
-                    ? "blog-section blog-section--reverse"
-                    : "blog-section"
-                }
-              >
-                <div className="blog-section__content">
+            <section
+              className={
+                index % 2 !== 0
+                  ? "blog-section blog-section--reverse"
+                  : "blog-section"
+              }
+            >
+              <div className="blog-section__content">
+                <div>
+                  <h2>{blog.title}</h2>
+                  {blog.description}
+                </div>
+                <div className="blog-section__footer">
                   <div>
-                    <h2>{blog.title}</h2>
-                    {blog.description}
-                  </div>
-                  <div className="blog-section__footer">
-                    <div>
-                      <span
-                        className="heart-button"
-                        onClick={() => likeABlog(blog._id)}
-                      >
-                        {blog.isLiked ? (
-                          <img src={filledHeart}></img>
-                        ) : (
-                          <img src={outLinedHeart}></img>
-                        )}
-                      </span>
-                      <span className="like">{blog.like}</span>
-                    </div>
-                    <div>
-                      <button
-                        className={pageDetails == "mypost" ? "view-more ml-8":"view-more"}
-                        onClick={() => {
-                          handleCardClick(blog._id);
-                        }}
-                      >
-                        View More
-                      </button>
-                    </div>
-                    <div className="align-items-center">
-                      {pageDetails == "mypost" && (
-                        <>
-                          <Button
-                            icon="pi pi-pen-to-square p-2"
-                            rounded
-                            text
-                            style={{ fontSize: "1.3rem" }}
-                            onClick={() => editPost(blog)}
-                          ></Button>
-                          <Button
-                            icon="pi pi-trash p-2 red"
-                            style={{ fontSize: "1.3rem" }}
-                            rounded
-                            text
-                            severity="danger"
-                            onClick={() =>
-                              setdeleteDialog({ visible: true, id: blog._id })
-                            }
-                          ></Button>
-                        </>
+                    <span
+                      className="heart-button"
+                      onClick={() => likeABlog(blog._id)}
+                    >
+                      {blog.isLiked ? (
+                        <img src={filledHeart}></img>
+                      ) : (
+                        <img src={outLinedHeart}></img>
                       )}
-                      <Button
-                        icon={
-                          blog.isBookmarked
-                            ? "pi pi-bookmark-fill"
-                            : "pi pi-bookmark"
-                        }
-                        onClick={() => handleBookmark(blog._id)}
-                        rounded
-                        text
-                        severity="info"
-                        aria-label="Bookmark"
-                      />
-                    </div>
+                    </span>
+                    <span className="like">{blog.like}</span>
+                  </div>
+                  <div>
+                    <button
+                      className={pageDetails == "mypost" ? "view-more ml-8":"view-more"}
+                      onClick={() => {
+                        handleCardClick(blog._id);
+                      }}
+                    >
+                      View More
+                    </button>
+                  </div>
+                  <div className="align-items-center">
+                    {pageDetails == "mypost" && (
+                      <>
+                        <Button
+                          icon="pi pi-pen-to-square p-2"
+                          rounded
+                          text
+                          style={{ fontSize: "1.3rem" }}
+                          onClick={() => editPost(blog)}
+                        ></Button>
+                        <Button
+                          icon="pi pi-trash p-2 red"
+                          style={{ fontSize: "1.3rem" }}
+                          rounded
+                          text
+                          severity="danger"
+                          onClick={() =>
+                            setdeleteDialog({ visible: true, id: blog._id })
+                          }
+                        ></Button>
+                      </>
+                    )}
+                    <Button
+                      icon={
+                        blog.isBookmarked
+                          ? "pi pi-bookmark-fill"
+                          : "pi pi-bookmark"
+                      }
+                      onClick={() => handleBookmark(blog._id)}
+                      rounded
+                      text
+                      severity="info"
+                      aria-label="Bookmark"
+                    />
                   </div>
                 </div>
-                <div className="blog-section__image">
-                  <div className="background-image"></div>
-                  <img
-                    src={"http://localhost:8080/" + blog.imageUrl}
-                    alt="Image"
-                  />
-                </div>
-              </section>
-            </div>
+              </div>
+              <div className="blog-section__image">
+                <div className="background-image"></div>
+               <img
+                  src={blog.imageUrl.startsWith("uploads")? "http://localhost:8080/" + blog.imageUrl:blog.imageUrl}
+                  alt="Image"
+                /> 
+              </div>
+            </section>
+          </div>
+          }
+         
+           </>
           );
         })}
+         {loading && Array(5).fill(5).map(()=>{return<Skeleton className="skeleton"></Skeleton>})}
       <div className="card">
        {totalPages>0 ? <Paginator
           first={first}
@@ -276,7 +291,7 @@ const Blog = (props: any) => {
           //  rowsPerPageOptions={[10, 20, 30]}
           onPageChange={onPageChange}
         />:
-        <div className="NoBlog">No Blog Found !!!</div>
+        <div className="NoBlog">{!loading && "No Blog Found !!!"}</div>
         }
       </div>
       <Toast ref={toast} />

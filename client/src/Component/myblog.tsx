@@ -5,6 +5,7 @@ import { InputIcon } from "primereact/inputicon";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Menu } from "primereact/menu";
 import { Paginator } from "primereact/paginator";
+import { Skeleton } from "primereact/skeleton";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { addComment, deleteComment, getBlogById, updateComment } from "../Services/blog";
@@ -84,7 +85,7 @@ const MyBlog = () => {
           <div className="inline-flex align-items-center justify-content-between gap-2 w-12">
             <div className="inline-flex align-items-center">
               <Avatar
-                image={"http://localhost:8080/" + user.profilePicture}
+                image={user.profilePicture.startsWith("uploads")?"http://localhost:8080/" + user.profilePicture:user.profilePicture}
                 imageFallback="https://bootdey.com/img/Content/avatar/avatar7.png"
                 shape="circle"
               />
@@ -166,8 +167,8 @@ const MyBlog = () => {
         <>
           <div className="my-blog">
             <div className="my-blog__image">
-              <img
-                src={"http://localhost:8080/" + currentBlog.imageUrl}
+               <img
+                src={currentBlog.imageUrl.startsWith("uploads")?"http://localhost:8080/" + currentBlog.imageUrl:currentBlog.imageUrl}
                 alt="Image"
               />
             </div>
@@ -217,59 +218,9 @@ const MyBlog = () => {
         </>
       ) : (
         <>
-          <div className="my-blog">
-            <div className="my-blog__image">
-              <img
-                src="https://media-www.sqspcdn.com/images/pages/homepage/aug-2023/grow-your-business/designed-to-sell/designed-to-sell-2-1500w.webp"
-                alt="Blog Image"
-              />
-            </div>
-            <div className="my-blog__content">
-              <h1 className="my-blog__title">SUMMER SALE</h1>
-              <p className="my-blog__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                interdum lorem ut ligula placerat, in dictum purus efficitur.
-                Phasellus at condimentum felis. Nulla facilisi. Sed vitae risus
-                ac mauris feugiat tincidunt a id odio. Fusce accumsan enim et
-                velit feugiat, et ultricies nisl auctor. Aliquam erat volutpat.
-                Sed sit amet vehicula leo.
-              </p>
-              <p className="my-blog__description">
-                Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-                interdum pretium a nec dolor. Suspendisse potenti. Nulla at
-                dolor ut urna vehicula ultricies id in libero. Nam consectetur
-                urna at orci cursus, at venenatis sapien varius.
-              </p>
-              <p className="my-blog__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                interdum lorem ut ligula placerat, in dictum purus efficitur.
-                Phasellus at condimentum felis. Nulla facilisi. Sed vitae risus
-                ac mauris feugiat tincidunt a id odio. Fusce accumsan enim et
-                velit feugiat, et ultricies nisl auctor. Aliquam erat volutpat.
-                Sed sit amet vehicula leo.
-              </p>
-              <p className="my-blog__description">
-                Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-                interdum pretium a nec dolor. Suspendisse potenti. Nulla at
-                dolor ut urna vehicula ultricies id in libero. Nam consectetur
-                urna at orci cursus, at venenatis sapien varius.
-              </p>
-              <p className="my-blog__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                interdum lorem ut ligula placerat, in dictum purus efficitur.
-                Phasellus at condimentum felis. Nulla facilisi. Sed vitae risus
-                ac mauris feugiat tincidunt a id odio. Fusce accumsan enim et
-                velit feugiat, et ultricies nisl auctor. Aliquam erat volutpat.
-                Sed sit amet vehicula leo.
-              </p>
-              <p className="my-blog__description">
-                Morbi ac eros eu elit volutpat dictum. Donec ac elit et nisi
-                interdum pretium a nec dolor. Suspendisse potenti. Nulla at
-                dolor ut urna vehicula ultricies id in libero. Nam consectetur
-                urna at orci cursus, at venenatis sapien varius.
-              </p>
-            </div>
-          </div>
+        <div className="my-blog"><Skeleton width="30rem" height="20rem"></Skeleton>
+        <br></br>
+        <Skeleton width="30rem" height="30rem" ></Skeleton></div>  
         </>
       )}
     </>
