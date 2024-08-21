@@ -85,7 +85,7 @@ const MyBlog = () => {
           <div className="inline-flex align-items-center justify-content-between gap-2 w-12">
             <div className="inline-flex align-items-center">
               <Avatar
-                image={user.profilePicture.startsWith("uploads")?"http://localhost:8080/" + user.profilePicture:user.profilePicture}
+                image={"http://localhost:8080/" + user.profilePicture}
                 imageFallback="https://bootdey.com/img/Content/avatar/avatar7.png"
                 shape="circle"
               />

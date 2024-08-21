@@ -2,6 +2,7 @@ import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { Toast } from 'primereact/toast';
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as AuthService from "../Services/authService";
 import "../Styles/signup.scss";
 
@@ -31,12 +32,14 @@ const Signup: React.FC = () => {
       });
     // }
   };
+  const navigate = useNavigate()
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     AuthService.signup(formData)
       .then((res:any) => {
         localStorage.setItem('userID',res.data.userId)
         showToast('success',res.data.message)
+        navigate("/blog")
       })
       .catch((err) => {
         console.log('err',err);
